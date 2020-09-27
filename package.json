@@ -1,0 +1,44 @@
+{
+  "name": "@seneca/s3-store",
+  "version": "0.0.1",
+  "description": "Entity store using AWS S3. Note: *not* for arbitrary binaries, just for Seneca data entities.",
+  "main": "dist/s3-store.js",
+  "scripts": {
+    "watch": "tsc -w -d",
+    "test": "lab -v -P test -t 50 --sourcemaps --transform node_modules/lab-transform-typescript -I @@any-promise/REGISTRATION -r console -o stdout -r html -o test/coverage.html",
+    "coveralls": "lab -s -P test -r lcov | coveralls",
+    "prettier": "prettier --write --no-semi --single-quote *.ts test/*.js",
+    "build": "tsc -d",
+    "clean": "rm -rf node_modules yarn.lock package-lock.json",
+    "reset": "npm run clean && npm i && npm test",
+    "repo-tag": "REPO_VERSION=`node -e \"console.log(require('./package').version)\"` && echo TAG: v$REPO_VERSION && git commit -a -m v$REPO_VERSION && git push && git tag v$REPO_VERSION && git push --tags;",
+    "repo-publish": "npm run clean && npm i && npm run repo-publish-quick",
+    "repo-publish-quick": "npm run prettier && npm run build && npm run test && npm run test-web && npm run repo-tag && npm publish --registry http://registry.npmjs.org --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/senecajs/seneca-s3-store.git"
+  },
+  "author": "Richard Rodger @rjrodger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/senecajs/seneca-s3-store/issues"
+  },
+  "homepage": "https://github.com/senecajs/seneca-s3-store#readme",
+  "dependencies": {
+    "aws-sdk": "^2.761.0"
+  },
+  "devDependencies": {
+    "@hapi/code": "^8.0.2",
+    "@hapi/lab": "^24.0.0",
+    "coveralls": "^3.1.0",
+    "lab-transform-typescript": "^3.0.1",
+    "prettier": "^2.1.2",
+    "s3rver": "^3.6.1",
+    "seneca": "^3.22.0",
+    "seneca-entity": "^10.1.0",
+    "seneca-promisify": "^2.0.0",
+    "seneca-store-test": "^3.1.0",
+    "typescript": "^4.0.3"
+  }
+}
