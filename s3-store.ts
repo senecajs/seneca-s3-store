@@ -3,12 +3,20 @@
 import AWS from 'aws-sdk'
 
 
+s3_store.defaults = {
+  prefix: 'seneca/db01/'
+}
+
 async function s3_store(options: any) {
   const seneca = this
   const init = seneca.export('entity/init')
 
   let generate_id = options.generate_id || seneca.export('entity/generate_id')
   let aws_s3: any = null
+  let s3_shared_options = {
+    Bucket: '!not-a-bucket!',
+    ...options.shared
+  }
 
   seneca.init(function(reply: () => void) {
     // AWS SDK setup
@@ -32,10 +40,12 @@ async function s3_store(options: any) {
       d.id = id
       let dj = JSON.stringify(d)
 
+      let s3id = make_s3id(id, msg.ent, options)
+
       aws_s3.putObject(
         {
-          Bucket: 'test-bucket',
-          Key: id,
+          ...s3_shared_options,
+          Key: s3id,
           Body: new Buffer(dj)
         },
         (err: Error) => {
@@ -49,10 +59,12 @@ async function s3_store(options: any) {
       let qent = msg.qent
       let id = '' + msg.q.id
 
+      let s3id = make_s3id(id, msg.ent, options)
+
       aws_s3.getObject(
         {
-          Key: id,
-          Bucket: 'test-bucket'
+          ...s3_shared_options,
+          Key: s3id,
         },
         (err: any, res: any) => {
           if (err && 'NoSuchKey' === err.code) {
@@ -73,10 +85,12 @@ async function s3_store(options: any) {
       let qent = msg.qent
       let id = '' + msg.q.id
 
+      let s3id = make_s3id(id, msg.ent, options)
+
       aws_s3.deleteObject(
         {
-          Key: id,
-          Bucket: 'test-bucket'
+          ...s3_shared_options,
+          Key: s3id,
         },
         (err: any, res: any) => {
           if (err && 'NoSuchKey' === err.code) {
@@ -107,6 +121,10 @@ async function s3_store(options: any) {
 
 }
 
+
+function make_s3id(id: string, ent: any, options: any) {
+  return null == id ? null : options.prefix + ent.entity$ + '/' + id + '.json'
+}
 
 Object.defineProperty(s3_store, 'name', { value: 's3-store' })
 module.exports = s3_store

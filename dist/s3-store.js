@@ -14,12 +14,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const aws_sdk_1 = __importDefault(require("aws-sdk"));
+s3_store.defaults = {
+    prefix: 'seneca/db01/'
+};
 function s3_store(options) {
     return __awaiter(this, void 0, void 0, function* () {
         const seneca = this;
         const init = seneca.export('entity/init');
         let generate_id = options.generate_id || seneca.export('entity/generate_id');
         let aws_s3 = null;
+        let s3_shared_options = Object.assign({ Bucket: '!not-a-bucket!' }, options.shared);
         seneca.init(function (reply) {
             // AWS SDK setup
             const s3_opts = Object.assign({ s3ForcePathStyle: true }, options.s3);
@@ -33,11 +37,8 @@ function s3_store(options) {
                 let d = msg.ent.data$();
                 d.id = id;
                 let dj = JSON.stringify(d);
-                aws_s3.putObject({
-                    Bucket: 'test-bucket',
-                    Key: id,
-                    Body: new Buffer(dj)
-                }, (err) => {
+                let s3id = make_s3id(id, msg.ent, options);
+                aws_s3.putObject(Object.assign(Object.assign({}, s3_shared_options), { Key: s3id, Body: new Buffer(dj) }), (err) => {
                     let ento = msg.ent.make$().data$(d);
                     reply(err, ento);
                 });
@@ -45,10 +46,8 @@ function s3_store(options) {
             load: function (msg, reply) {
                 let qent = msg.qent;
                 let id = '' + msg.q.id;
-                aws_s3.getObject({
-                    Key: id,
-                    Bucket: 'test-bucket'
-                }, (err, res) => {
+                let s3id = make_s3id(id, msg.ent, options);
+                aws_s3.getObject(Object.assign(Object.assign({}, s3_shared_options), { Key: s3id }), (err, res) => {
                     if (err && 'NoSuchKey' === err.code) {
                         return reply();
                     }
@@ -63,10 +62,8 @@ function s3_store(options) {
             remove: function (msg, reply) {
                 let qent = msg.qent;
                 let id = '' + msg.q.id;
-                aws_s3.deleteObject({
-                    Key: id,
-                    Bucket: 'test-bucket'
-                }, (err, res) => {
+                let s3id = make_s3id(id, msg.ent, options);
+                aws_s3.deleteObject(Object.assign(Object.assign({}, s3_shared_options), { Key: s3id }), (err, res) => {
                     if (err && 'NoSuchKey' === err.code) {
                         return reply();
                     }
@@ -89,6 +86,9 @@ function s3_store(options) {
             },
         };
     });
+}
+function make_s3id(id, ent, options) {
+    return null == id ? null : options.prefix + ent.entity$ + '/' + id + '.json';
 }
 Object.defineProperty(s3_store, 'name', { value: 's3-store' });
 module.exports = s3_store;

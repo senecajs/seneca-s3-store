@@ -101,3 +101,10 @@ typings/
 
 # TernJS port file
 .tern-port
+
+*~
+
+# AWS credentials
+test/aws-s3-opts.json
+
+
