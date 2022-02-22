@@ -22,35 +22,29 @@ const test_opts = {
   name: 's3-store',
 }
 
-
 lab.before(async function () {
   test_opts.options = await makeOptions()
 
-  test_opts.seneca = Seneca({require})
+  test_opts.seneca = Seneca({ require })
     .test()
     .use('promisify')
     .use('entity', { mem_store: false })
-  
 })
-
 
 Shared.test.init(lab, test_opts)
 Shared.test.keyvalue(lab, test_opts)
 
-
 async function makeOptions() {
-  if(LOCAL) {
+  if (LOCAL) {
     return localS3()
-  }
-  else {
+  } else {
     return require('./aws-s3-opts')
   }
 }
 
-
 async function localS3() {
-  const corsConfig = require.resolve('s3rver/example/cors.xml');
-  const websiteConfig = require.resolve('s3rver/example/website.xml');
+  const corsConfig = require.resolve('s3rver/example/cors.xml')
+  const websiteConfig = require.resolve('s3rver/example/website.xml')
 
   const s3rver = new S3rver({
     silent: true,
@@ -63,7 +57,7 @@ async function localS3() {
   })
 
   const { port } = await s3rver.run()
-  
+
   return {
     s3: {
       accessKeyId: 'S3RVER',
@@ -72,7 +66,7 @@ async function localS3() {
       sslEnabled: false,
     },
     shared: {
-      Bucket: 'test-bucket'
-    }
+      Bucket: 'test-bucket',
+    },
   }
 }

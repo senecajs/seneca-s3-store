@@ -15,7 +15,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const aws_sdk_1 = __importDefault(require("aws-sdk"));
 s3_store.defaults = {
-    prefix: 'seneca/db01/'
+    prefix: 'seneca/db01/',
 };
 function s3_store(options) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -51,8 +51,9 @@ function s3_store(options) {
                     if (err && 'NoSuchKey' === err.code) {
                         return reply();
                     }
-                    let ento = null == res ? null :
-                        qent.make$().data$(JSON.parse(res.Body.toString()));
+                    let ento = null == res
+                        ? null
+                        : qent.make$().data$(JSON.parse(res.Body.toString()));
                     reply(err, ento);
                 });
             },

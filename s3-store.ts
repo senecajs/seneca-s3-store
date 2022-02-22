@@ -2,9 +2,8 @@
 
 import AWS from 'aws-sdk'
 
-
 s3_store.defaults = {
-  prefix: 'seneca/db01/'
+  prefix: 'seneca/db01/',
 }
 
 async function s3_store(options: any) {
@@ -15,15 +14,15 @@ async function s3_store(options: any) {
   let aws_s3: any = null
   let s3_shared_options = {
     Bucket: '!not-a-bucket!',
-    ...options.shared
+    ...options.shared,
   }
 
-  seneca.init(function(reply: () => void) {
+  seneca.init(function (reply: () => void) {
     // AWS SDK setup
 
     const s3_opts = {
       s3ForcePathStyle: true,
-      ...options.s3
+      ...options.s3,
     }
 
     aws_s3 = new AWS.S3(s3_opts)
@@ -31,10 +30,9 @@ async function s3_store(options: any) {
     reply()
   })
 
-
   let store = {
     name: 's3-store',
-    save: function(msg: any, reply: any) {
+    save: function (msg: any, reply: any) {
       let id = '' + (msg.ent.id || msg.ent.id$ || generate_id(msg.ent))
       let d = msg.ent.data$()
       d.id = id
@@ -46,7 +44,7 @@ async function s3_store(options: any) {
         {
           ...s3_shared_options,
           Key: s3id,
-          Body: new Buffer(dj)
+          Body: new Buffer(dj),
         },
         (err: Error) => {
           let ento = msg.ent.make$().data$(d)
@@ -55,7 +53,7 @@ async function s3_store(options: any) {
         }
       )
     },
-    load: function(msg: any, reply: any) {
+    load: function (msg: any, reply: any) {
       let qent = msg.qent
       let id = '' + msg.q.id
 
@@ -71,17 +69,19 @@ async function s3_store(options: any) {
             return reply()
           }
 
-          let ento = null == res ? null :
-            qent.make$().data$(JSON.parse(res.Body.toString()))
+          let ento =
+            null == res
+              ? null
+              : qent.make$().data$(JSON.parse(res.Body.toString()))
 
           reply(err, ento)
         }
       )
     },
-    list: function(msg: any, reply: any) {
+    list: function (msg: any, reply: any) {
       reply([])
     },
-    remove: function(msg: any, reply: any) {
+    remove: function (msg: any, reply: any) {
       let qent = msg.qent
       let id = '' + msg.q.id
 
@@ -101,10 +101,10 @@ async function s3_store(options: any) {
         }
       )
     },
-    close: function(msg: any, reply: () => void) {
+    close: function (msg: any, reply: () => void) {
       reply()
     },
-    native: function(msg: any, reply: () => void) {
+    native: function (msg: any, reply: () => void) {
       reply()
     },
   }
@@ -118,9 +118,7 @@ async function s3_store(options: any) {
       native: aws_s3,
     },
   }
-
 }
-
 
 function make_s3id(id: string, ent: any, options: any) {
   return null == id ? null : options.prefix + ent.entity$ + '/' + id + '.json'
