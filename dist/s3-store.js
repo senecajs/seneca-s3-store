@@ -16,6 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const aws_sdk_1 = __importDefault(require("aws-sdk"));
 s3_store.defaults = {
     prefix: 'seneca/db01/',
+    folder: null,
 };
 function s3_store(options) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -89,7 +90,12 @@ function s3_store(options) {
     });
 }
 function make_s3id(id, ent, options) {
-    return null == id ? null : options.prefix + ent.entity$ + '/' + id + '.json';
+    return null == id
+        ? null
+        : (null == options.folder ? options.prefix + ent.entity$ : options.folder) +
+            '/' +
+            id +
+            '.json';
 }
 Object.defineProperty(s3_store, 'name', { value: 's3-store' });
 module.exports = s3_store;

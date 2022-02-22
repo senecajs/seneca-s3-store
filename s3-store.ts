@@ -4,6 +4,7 @@ import AWS from 'aws-sdk'
 
 s3_store.defaults = {
   prefix: 'seneca/db01/',
+  folder: null,
 }
 
 async function s3_store(options: any) {
@@ -121,7 +122,12 @@ async function s3_store(options: any) {
 }
 
 function make_s3id(id: string, ent: any, options: any) {
-  return null == id ? null : options.prefix + ent.entity$ + '/' + id + '.json'
+  return null == id
+    ? null
+    : (null == options.folder ? options.prefix + ent.entity$ : options.folder) +
+        '/' +
+        id +
+        '.json'
 }
 
 Object.defineProperty(s3_store, 'name', { value: 's3-store' })
