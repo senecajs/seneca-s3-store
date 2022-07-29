@@ -25,7 +25,8 @@ const test_opts = {
 lab.before(async function () {
   test_opts.options = await makeOptions()
 
-  test_opts.seneca = Seneca({ require })
+  // test_opts.seneca = Seneca({ require })
+  test_opts.seneca = Seneca()
     .test()
     .use('promisify')
     .use('entity', { mem_store: false })

@@ -536,7 +536,7 @@
         <li><a href="#tests">Test Report</a></li>
         <li><a href="#coverage">Coverage Report</a></li>
         <li class="generated">
-            <span class="cov high">86.90</span>
+            <span class="cov high">88.89</span>
             <a href="#dist/s3-store.js"><span class="dirname">dist/</span><span class="basename">s3-store.js</span></a>
         </li>
         <li><a href="#linting">Linting Report</a></li>
@@ -547,7 +547,7 @@
           <div class="failures">0</div>
           <div class="skipped">0</div>
           <div class="test-count">5</div>
-          <div class="duration">1597</div>
+          <div class="duration">1350</div>
       </div>
       <div id="filters">
           <input type="checkbox" checked="" onchange="filter(this)" value="success" id="show-success">
@@ -574,35 +574,35 @@
               <td class="test-title">store-init load-store-plugin
                   
               </td>
-              <td class="test-duration">836</td>
+              <td class="test-duration">748</td>
           </tr>
           <tr class="show store-init success">
               <td class="test-id">2</td>
               <td class="test-title">store-init clear-data
                   
               </td>
-              <td class="test-duration">70</td>
+              <td class="test-duration">59</td>
           </tr>
           <tr class="show store-keyvalue success">
               <td class="test-id">3</td>
               <td class="test-title">store-keyvalue save-load-auto-id
                   
               </td>
-              <td class="test-duration">256</td>
+              <td class="test-duration">132</td>
           </tr>
           <tr class="show store-keyvalue success">
               <td class="test-id">4</td>
               <td class="test-title">store-keyvalue save-load-given-id
                   
               </td>
-              <td class="test-duration">134</td>
+              <td class="test-duration">139</td>
           </tr>
           <tr class="show store-keyvalue success">
               <td class="test-id">5</td>
               <td class="test-title">store-keyvalue remove
                   
               </td>
-              <td class="test-duration">88</td>
+              <td class="test-duration">56</td>
           </tr>
           </tbody>
       </table>
@@ -610,9 +610,9 @@
     </div>    <div id="coverage">
         <h1>Code Coverage Report</h1>
         <div class="stats high">
-            <div class="percentage">86.90%</div>
-            <div class="sloc">84</div>
-            <div class="hits">73</div>
+            <div class="percentage">88.89%</div>
+            <div class="sloc">99</div>
+            <div class="hits">88</div>
             <div class="misses">11</div>
         </div>
         <div id="filters">
@@ -623,9 +623,9 @@
             <div class="file show generated">
                 <h2 id="dist/s3-store.js">dist/s3-store.js </h2>
                 <div class="stats high">
-                    <div class="percentage">86.90%</div>
-                    <div class="sloc">84</div>
-                    <div class="hits">73</div>
+                    <div class="percentage">88.89%</div>
+                    <div class="sloc">99</div>
+                    <div class="hits">88</div>
                     <div class="misses">11</div>
                 </div>
                 <table>
@@ -650,603 +650,633 @@
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
                           <td class="source">/* Copyright (c) 2020 Richard Rodger, MIT License */</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__1">1</a></td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__1">1</a></td>
                         </tr>            <tr id="dist/s3-store.js__3" class="hit">
                           <td class="line" data-tooltip>3</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip>1</td>
-                          <td class="source">var __awaiter &#x3D; (this &amp;&amp; this.__awaiter) || function (thisArg, _arguments, P, generator) {</td>
+                          <td class="source">var __importDefault &#x3D; (this &amp;&amp; this.__importDefault) || function (mod) {</td>
                           
                         </tr>            <tr id="dist/s3-store.js__4" class="hit">
                           <td class="line" data-tooltip>4</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }</td>
+                          <td class="source">    return (mod &amp;&amp; mod.__esModule) ? mod : { &quot;default&quot;: mod };</td>
                           
                         </tr>            <tr id="dist/s3-store.js__5" class="hit">
                           <td class="line" data-tooltip>5</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>1</td>
-                          <td class="source">    return new (P || (P &#x3D; Promise))(function (resolve, reject) {</td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">};</td>
                           
                         </tr>            <tr id="dist/s3-store.js__6" class="hit">
                           <td class="line" data-tooltip>6</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source">        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }</td>
+                          <td class="hits" data-tooltip>1</td>
+                          <td class="source">Object.defineProperty(exports, &quot;__esModule&quot;, { value: true });</td>
                           
                         </tr>            <tr id="dist/s3-store.js__7" class="hit">
                           <td class="line" data-tooltip>7</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source">        function rejected(value) { try { step(generator[&quot;throw&quot;](value)); } catch (e) { reject(e); } }</td>
-                          
+                          <td class="hits" data-tooltip>1</td>
+                          <td class="source">const aws_sdk_1 &#x3D; __importDefault(require(&quot;aws-sdk&quot;));</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__3">3</a></td>
                         </tr>            <tr id="dist/s3-store.js__8" class="hit">
                           <td class="line" data-tooltip>8</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip>1</td>
-                          <td class="source">        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }</td>
-                          
+                          <td class="source">s3_store.defaults &#x3D; {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__5">5</a></td>
                         </tr>            <tr id="dist/s3-store.js__9" class="hit">
                           <td class="line" data-tooltip>9</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>1</td>
-                          <td class="source">        step((generator &#x3D; generator.apply(thisArg, _arguments || [])).next());</td>
-                          
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">    prefix: &#x27;seneca/db01/&#x27;,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__6">6</a></td>
                         </tr>            <tr id="dist/s3-store.js__10" class="hit">
                           <td class="line" data-tooltip>10</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">    });</td>
-                          
+                          <td class="source">    folder: null,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__7">7</a></td>
                         </tr>            <tr id="dist/s3-store.js__11" class="hit">
                           <td class="line" data-tooltip>11</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
                           <td class="source">};</td>
-                          
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__8">8</a></td>
                         </tr>            <tr id="dist/s3-store.js__12" class="hit">
                           <td class="line" data-tooltip>12</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>1</td>
-                          <td class="source">var __importDefault &#x3D; (this &amp;&amp; this.__importDefault) || function (mod) {</td>
-                          
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">async function s3_store(options) {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__10">10</a></td>
                         </tr>            <tr id="dist/s3-store.js__13" class="hit">
                           <td class="line" data-tooltip>13</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source">    return (mod &amp;&amp; mod.__esModule) ? mod : { &quot;default&quot;: mod };</td>
-                          
+                          <td class="hits" data-tooltip>1</td>
+                          <td class="source">    const seneca &#x3D; this;</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__11">11</a></td>
                         </tr>            <tr id="dist/s3-store.js__14" class="hit">
                           <td class="line" data-tooltip>14</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source">};</td>
-                          
-                        </tr>            <tr id="dist/s3-store.js__15" class="hit">
+                          <td class="hits" data-tooltip>1</td>
+                          <td class="source">    const init &#x3D; seneca.export(&#x27;entity/init&#x27;);</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__12">12</a></td>
+                        </tr>            <tr id="dist/s3-store.js__15" class="chunks">
                           <td class="line" data-tooltip>15</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>1</td>
-                          <td class="source">Object.defineProperty(exports, &quot;__esModule&quot;, { value: true });</td>
-                          
+                          <td class="hits" data-tooltip></td>
+                          <td class="source"><div>    let generate_id &#x3D; </div><div class="miss false" data-tooltip>options.generate_id</div><div> || seneca.export(&#x27;entity/generate_id&#x27;);</div></td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__14">14</a></td>
                         </tr>            <tr id="dist/s3-store.js__16" class="hit">
                           <td class="line" data-tooltip>16</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip>1</td>
-                          <td class="source">const aws_sdk_1 &#x3D; __importDefault(require(&quot;aws-sdk&quot;));</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__3">3</a></td>
+                          <td class="source">    let aws_s3 &#x3D; null;</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__15">15</a></td>
                         </tr>            <tr id="dist/s3-store.js__17" class="hit">
                           <td class="line" data-tooltip>17</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip>1</td>
-                          <td class="source">s3_store.defaults &#x3D; {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__5">5</a></td>
+                          <td class="source">    let s3_shared_options &#x3D; {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__16">16</a></td>
                         </tr>            <tr id="dist/s3-store.js__18" class="hit">
                           <td class="line" data-tooltip>18</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">    prefix: &#x27;seneca/db01/&#x27;,</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__6">6</a></td>
+                          <td class="source">        Bucket: &#x27;!not-a-bucket!&#x27;,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__17">17</a></td>
                         </tr>            <tr id="dist/s3-store.js__19" class="hit">
                           <td class="line" data-tooltip>19</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">    folder: null,</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__7">7</a></td>
+                          <td class="source">        ...options.shared,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__18">18</a></td>
                         </tr>            <tr id="dist/s3-store.js__20" class="hit">
                           <td class="line" data-tooltip>20</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">};</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__8">8</a></td>
+                          <td class="source">    };</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__19">19</a></td>
                         </tr>            <tr id="dist/s3-store.js__21" class="hit">
                           <td class="line" data-tooltip>21</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source">function s3_store(options) {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__10">10</a></td>
+                          <td class="hits" data-tooltip>1</td>
+                          <td class="source">    seneca.init(function (reply) {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__21">21</a></td>
                         </tr>            <tr id="dist/s3-store.js__22" class="hit">
                           <td class="line" data-tooltip>22</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>1</td>
-                          <td class="source">    return __awaiter(this, void 0, void 0, function* () {</td>
-                          
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">        // AWS SDK setup</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__22">22</a></td>
                         </tr>            <tr id="dist/s3-store.js__23" class="hit">
                           <td class="line" data-tooltip>23</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">        const seneca &#x3D; this;</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__11">11</a></td>
+                          <td class="source">        const s3_opts &#x3D; {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__24">24</a></td>
                         </tr>            <tr id="dist/s3-store.js__24" class="hit">
                           <td class="line" data-tooltip>24</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>1</td>
-                          <td class="source">        const init &#x3D; seneca.export(&#x27;entity/init&#x27;);</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__12">12</a></td>
-                        </tr>            <tr id="dist/s3-store.js__25" class="chunks">
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">            s3ForcePathStyle: true,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__25">25</a></td>
+                        </tr>            <tr id="dist/s3-store.js__25" class="hit">
                           <td class="line" data-tooltip>25</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source"><div>        let generate_id &#x3D; </div><div class="miss false" data-tooltip>options.generate_id</div><div> || seneca.export(&#x27;entity/generate_id&#x27;);</div></td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__14">14</a></td>
+                          <td class="source">            ...options.s3,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__26">26</a></td>
                         </tr>            <tr id="dist/s3-store.js__26" class="hit">
                           <td class="line" data-tooltip>26</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>1</td>
-                          <td class="source">        let aws_s3 &#x3D; null;</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__15">15</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">        };</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__27">27</a></td>
                         </tr>            <tr id="dist/s3-store.js__27" class="hit">
                           <td class="line" data-tooltip>27</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip>1</td>
-                          <td class="source">        let s3_shared_options &#x3D; Object.assign({ Bucket: &#x27;!not-a-bucket!&#x27; }, options.shared);</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__19">19</a></td>
+                          <td class="source">        aws_s3 &#x3D; new aws_sdk_1.default.S3(s3_opts);</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__29">29</a></td>
                         </tr>            <tr id="dist/s3-store.js__28" class="hit">
                           <td class="line" data-tooltip>28</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip>1</td>
-                          <td class="source">        seneca.init(function (reply) {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__21">21</a></td>
+                          <td class="source">        reply();</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__31">31</a></td>
                         </tr>            <tr id="dist/s3-store.js__29" class="hit">
                           <td class="line" data-tooltip>29</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            // AWS SDK setup</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__22">22</a></td>
+                          <td class="source">    });</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__32">32</a></td>
                         </tr>            <tr id="dist/s3-store.js__30" class="hit">
                           <td class="line" data-tooltip>30</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source">            const s3_opts &#x3D; Object.assign({ s3ForcePathStyle: true }, options.s3);</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__27">27</a></td>
+                          <td class="hits" data-tooltip>1</td>
+                          <td class="source">    let store &#x3D; {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__34">34</a></td>
                         </tr>            <tr id="dist/s3-store.js__31" class="hit">
                           <td class="line" data-tooltip>31</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>1</td>
-                          <td class="source">            aws_s3 &#x3D; new aws_sdk_1.default.S3(s3_opts);</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__29">29</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">        name: &#x27;s3-store&#x27;,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__35">35</a></td>
                         </tr>            <tr id="dist/s3-store.js__32" class="hit">
                           <td class="line" data-tooltip>32</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>1</td>
-                          <td class="source">            reply();</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__31">31</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">        save: function (msg, reply) {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__36">36</a></td>
                         </tr>            <tr id="dist/s3-store.js__33" class="hit">
                           <td class="line" data-tooltip>33</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">        });</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__32">32</a></td>
+                          <td class="source">            let id &#x3D; &#x27;&#x27; + (msg.ent.id || msg.ent.id$ || generate_id(msg.ent));</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__37">37</a></td>
                         </tr>            <tr id="dist/s3-store.js__34" class="hit">
                           <td class="line" data-tooltip>34</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>1</td>
-                          <td class="source">        let store &#x3D; {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__34">34</a></td>
+                          <td class="hits" data-tooltip>10</td>
+                          <td class="source">            let d &#x3D; msg.ent.data$();</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__38">38</a></td>
                         </tr>            <tr id="dist/s3-store.js__35" class="hit">
                           <td class="line" data-tooltip>35</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source">            name: &#x27;s3-store&#x27;,</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__35">35</a></td>
+                          <td class="hits" data-tooltip>10</td>
+                          <td class="source">            d.id &#x3D; id;</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__39">39</a></td>
                         </tr>            <tr id="dist/s3-store.js__36" class="hit">
                           <td class="line" data-tooltip>36</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source">            save: function (msg, reply) {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__36">36</a></td>
+                          <td class="hits" data-tooltip>10</td>
+                          <td class="source">            let dj &#x3D; JSON.stringify(d);</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__40">40</a></td>
                         </tr>            <tr id="dist/s3-store.js__37" class="hit">
                           <td class="line" data-tooltip>37</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source">                let id &#x3D; &#x27;&#x27; + (msg.ent.id || msg.ent.id$ || generate_id(msg.ent));</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__37">37</a></td>
+                          <td class="hits" data-tooltip>10</td>
+                          <td class="source">            let s3id &#x3D; make_s3id(id, msg.ent, options);</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__42">42</a></td>
                         </tr>            <tr id="dist/s3-store.js__38" class="hit">
                           <td class="line" data-tooltip>38</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip>10</td>
-                          <td class="source">                let d &#x3D; msg.ent.data$();</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__38">38</a></td>
+                          <td class="source">            aws_s3.putObject({</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__45">45</a></td>
                         </tr>            <tr id="dist/s3-store.js__39" class="hit">
                           <td class="line" data-tooltip>39</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>10</td>
-                          <td class="source">                d.id &#x3D; id;</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__39">39</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">                ...s3_shared_options,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__46">46</a></td>
                         </tr>            <tr id="dist/s3-store.js__40" class="hit">
                           <td class="line" data-tooltip>40</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>10</td>
-                          <td class="source">                let dj &#x3D; JSON.stringify(d);</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__40">40</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">                Key: s3id,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__47">47</a></td>
                         </tr>            <tr id="dist/s3-store.js__41" class="hit">
                           <td class="line" data-tooltip>41</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>10</td>
-                          <td class="source">                let s3id &#x3D; make_s3id(id, msg.ent, options);</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__42">42</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">                Body: new Buffer(dj),</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__48">48</a></td>
                         </tr>            <tr id="dist/s3-store.js__42" class="hit">
                           <td class="line" data-tooltip>42</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>10</td>
-                          <td class="source">                aws_s3.putObject(Object.assign(Object.assign({}, s3_shared_options), { Key: s3id, Body: new Buffer(dj) }), (err) &#x3D;&gt; {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__50">50</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">            }, (err) &#x3D;&gt; {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__50">50</a></td>
                         </tr>            <tr id="dist/s3-store.js__43" class="hit">
                           <td class="line" data-tooltip>43</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">                    let ento &#x3D; msg.ent.make$().data$(d);</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__51">51</a></td>
+                          <td class="source">                let ento &#x3D; msg.ent.make$().data$(d);</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__51">51</a></td>
                         </tr>            <tr id="dist/s3-store.js__44" class="hit">
                           <td class="line" data-tooltip>44</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip>10</td>
-                          <td class="source">                    reply(err, ento);</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__53">53</a></td>
+                          <td class="source">                reply(err, ento);</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__53">53</a></td>
                         </tr>            <tr id="dist/s3-store.js__45" class="hit">
                           <td class="line" data-tooltip>45</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">                });</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__55">55</a></td>
+                          <td class="source">            });</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__55">55</a></td>
                         </tr>            <tr id="dist/s3-store.js__46" class="hit">
                           <td class="line" data-tooltip>46</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            },</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__56">56</a></td>
+                          <td class="source">        },</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__56">56</a></td>
                         </tr>            <tr id="dist/s3-store.js__47" class="hit">
                           <td class="line" data-tooltip>47</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            load: function (msg, reply) {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__57">57</a></td>
+                          <td class="source">        load: function (msg, reply) {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__57">57</a></td>
                         </tr>            <tr id="dist/s3-store.js__48" class="hit">
                           <td class="line" data-tooltip>48</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">                let qent &#x3D; msg.qent;</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__58">58</a></td>
+                          <td class="source">            let qent &#x3D; msg.qent;</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__58">58</a></td>
                         </tr>            <tr id="dist/s3-store.js__49" class="hit">
                           <td class="line" data-tooltip>49</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip>20</td>
-                          <td class="source">                let id &#x3D; &#x27;&#x27; + msg.q.id;</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__59">59</a></td>
+                          <td class="source">            let id &#x3D; &#x27;&#x27; + msg.q.id;</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__59">59</a></td>
                         </tr>            <tr id="dist/s3-store.js__50" class="hit">
                           <td class="line" data-tooltip>50</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip>20</td>
-                          <td class="source">                let s3id &#x3D; make_s3id(id, msg.ent, options);</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__61">61</a></td>
+                          <td class="source">            let s3id &#x3D; make_s3id(id, msg.ent, options);</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__61">61</a></td>
                         </tr>            <tr id="dist/s3-store.js__51" class="hit">
                           <td class="line" data-tooltip>51</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip>20</td>
-                          <td class="source">                aws_s3.getObject(Object.assign(Object.assign({}, s3_shared_options), { Key: s3id }), (err, res) &#x3D;&gt; {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__68">68</a></td>
-                        </tr>            <tr id="dist/s3-store.js__52" class="chunks">
+                          <td class="source">            aws_s3.getObject({</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__64">64</a></td>
+                        </tr>            <tr id="dist/s3-store.js__52" class="hit">
                           <td class="line" data-tooltip>52</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source"><div>                    if (err &amp;&amp; </div><div class="miss true" data-tooltip>&#x27;NoSuchKey&#x27; &#x3D;&#x3D;&#x3D; err.code</div><div>) {</div></td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__69">69</a></td>
+                          <td class="source">                ...s3_shared_options,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__65">65</a></td>
                         </tr>            <tr id="dist/s3-store.js__53" class="hit">
                           <td class="line" data-tooltip>53</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>5</td>
-                          <td class="source">                        return reply();</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__70">70</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">                Key: s3id,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__66">66</a></td>
                         </tr>            <tr id="dist/s3-store.js__54" class="hit">
                           <td class="line" data-tooltip>54</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">                    }</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__71">71</a></td>
+                          <td class="source">            }, (err, res) &#x3D;&gt; {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__68">68</a></td>
                         </tr>            <tr id="dist/s3-store.js__55" class="chunks">
                           <td class="line" data-tooltip>55</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source"><div>                    let ento &#x3D; </div><div class="miss false" data-tooltip>null &#x3D;&#x3D; res</div></td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__74">74</a></td>
-                        </tr>            <tr id="dist/s3-store.js__56" class="chunks">
+                          <td class="source"><div>                if (err &amp;&amp; </div><div class="miss true" data-tooltip>&#x27;NoSuchKey&#x27; &#x3D;&#x3D;&#x3D; err.code</div><div>) {</div></td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__69">69</a></td>
+                        </tr>            <tr id="dist/s3-store.js__56" class="hit">
                           <td class="line" data-tooltip>56</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source"><div>                        ? </div><div class="miss never" data-tooltip>null</div></td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__75">75</a></td>
+                          <td class="hits" data-tooltip>5</td>
+                          <td class="source">                    return reply();</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__70">70</a></td>
                         </tr>            <tr id="dist/s3-store.js__57" class="hit">
                           <td class="line" data-tooltip>57</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">                        : qent.make$().data$(JSON.parse(res.Body.toString()));</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__76">76</a></td>
-                        </tr>            <tr id="dist/s3-store.js__58" class="hit">
+                          <td class="source">                }</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__71">71</a></td>
+                        </tr>            <tr id="dist/s3-store.js__58" class="chunks">
                           <td class="line" data-tooltip>58</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>15</td>
-                          <td class="source">                    reply(err, ento);</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__78">78</a></td>
-                        </tr>            <tr id="dist/s3-store.js__59" class="hit">
+                          <td class="hits" data-tooltip></td>
+                          <td class="source"><div>                let ento &#x3D; </div><div class="miss false" data-tooltip>null &#x3D;&#x3D; res</div></td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__74">74</a></td>
+                        </tr>            <tr id="dist/s3-store.js__59" class="chunks">
                           <td class="line" data-tooltip>59</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">                });</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__80">80</a></td>
+                          <td class="source"><div>                    ? </div><div class="miss never" data-tooltip>null</div></td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__75">75</a></td>
                         </tr>            <tr id="dist/s3-store.js__60" class="hit">
                           <td class="line" data-tooltip>60</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            },</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__81">81</a></td>
+                          <td class="source">                    : qent.make$().data$(JSON.parse(res.Body.toString()));</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__76">76</a></td>
                         </tr>            <tr id="dist/s3-store.js__61" class="hit">
                           <td class="line" data-tooltip>61</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source">            list: function (msg, reply) {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__82">82</a></td>
+                          <td class="hits" data-tooltip>15</td>
+                          <td class="source">                reply(err, ento);</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__78">78</a></td>
                         </tr>            <tr id="dist/s3-store.js__62" class="hit">
                           <td class="line" data-tooltip>62</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">                reply([]);</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__83">83</a></td>
+                          <td class="source">            });</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__80">80</a></td>
                         </tr>            <tr id="dist/s3-store.js__63" class="hit">
                           <td class="line" data-tooltip>63</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            },</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__84">84</a></td>
+                          <td class="source">        },</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__81">81</a></td>
                         </tr>            <tr id="dist/s3-store.js__64" class="hit">
                           <td class="line" data-tooltip>64</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            remove: function (msg, reply) {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__85">85</a></td>
+                          <td class="source">        list: function (msg, reply) {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__82">82</a></td>
                         </tr>            <tr id="dist/s3-store.js__65" class="hit">
                           <td class="line" data-tooltip>65</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">                let qent &#x3D; msg.qent;</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__86">86</a></td>
+                          <td class="source">            reply([]);</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__83">83</a></td>
                         </tr>            <tr id="dist/s3-store.js__66" class="hit">
                           <td class="line" data-tooltip>66</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>3</td>
-                          <td class="source">                let id &#x3D; &#x27;&#x27; + msg.q.id;</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__87">87</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">        },</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__84">84</a></td>
                         </tr>            <tr id="dist/s3-store.js__67" class="hit">
                           <td class="line" data-tooltip>67</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>3</td>
-                          <td class="source">                let s3id &#x3D; make_s3id(id, msg.ent, options);</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__89">89</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">        remove: function (msg, reply) {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__85">85</a></td>
                         </tr>            <tr id="dist/s3-store.js__68" class="hit">
                           <td class="line" data-tooltip>68</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>3</td>
-                          <td class="source">                aws_s3.deleteObject(Object.assign(Object.assign({}, s3_shared_options), { Key: s3id }), (err, res) &#x3D;&gt; {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__96">96</a></td>
-                        </tr>            <tr id="dist/s3-store.js__69" class="chunks">
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">            let qent &#x3D; msg.qent;</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__86">86</a></td>
+                        </tr>            <tr id="dist/s3-store.js__69" class="hit">
                           <td class="line" data-tooltip>69</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source"><div>                    if (</div><div class="miss false" data-tooltip>err</div><div> &amp;&amp; </div><div class="miss never" data-tooltip>&#x27;NoSuchKey&#x27; &#x3D;&#x3D;&#x3D; err.code</div><div>) {</div></td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__97">97</a></td>
-                        </tr>            <tr id="dist/s3-store.js__70" class="miss">
+                          <td class="hits" data-tooltip>3</td>
+                          <td class="source">            let id &#x3D; &#x27;&#x27; + msg.q.id;</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__87">87</a></td>
+                        </tr>            <tr id="dist/s3-store.js__70" class="hit">
                           <td class="line" data-tooltip>70</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source" data-tooltip>                        return reply();</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__98">98</a></td>
+                          <td class="hits" data-tooltip>3</td>
+                          <td class="source">            let s3id &#x3D; make_s3id(id, msg.ent, options);</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__89">89</a></td>
                         </tr>            <tr id="dist/s3-store.js__71" class="hit">
                           <td class="line" data-tooltip>71</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source">                    }</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__99">99</a></td>
+                          <td class="hits" data-tooltip>3</td>
+                          <td class="source">            aws_s3.deleteObject({</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__92">92</a></td>
                         </tr>            <tr id="dist/s3-store.js__72" class="hit">
                           <td class="line" data-tooltip>72</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>3</td>
-                          <td class="source">                    reply(err);</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__101">101</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">                ...s3_shared_options,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__93">93</a></td>
                         </tr>            <tr id="dist/s3-store.js__73" class="hit">
                           <td class="line" data-tooltip>73</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">                });</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__103">103</a></td>
+                          <td class="source">                Key: s3id,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__94">94</a></td>
                         </tr>            <tr id="dist/s3-store.js__74" class="hit">
                           <td class="line" data-tooltip>74</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            },</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__104">104</a></td>
-                        </tr>            <tr id="dist/s3-store.js__75" class="hit">
+                          <td class="source">            }, (err, res) &#x3D;&gt; {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__96">96</a></td>
+                        </tr>            <tr id="dist/s3-store.js__75" class="chunks">
                           <td class="line" data-tooltip>75</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            close: function (msg, reply) {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__105">105</a></td>
-                        </tr>            <tr id="dist/s3-store.js__76" class="chunks">
+                          <td class="source"><div>                if (</div><div class="miss false" data-tooltip>err</div><div> &amp;&amp; </div><div class="miss never" data-tooltip>&#x27;NoSuchKey&#x27; &#x3D;&#x3D;&#x3D; err.code</div><div>) {</div></td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__97">97</a></td>
+                        </tr>            <tr id="dist/s3-store.js__76" class="miss">
                           <td class="line" data-tooltip>76</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source"><div>                </div><div class="miss never" data-tooltip>reply();</div></td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__106">106</a></td>
+                          <td class="source" data-tooltip>                    return reply();</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__98">98</a></td>
                         </tr>            <tr id="dist/s3-store.js__77" class="hit">
                           <td class="line" data-tooltip>77</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            },</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__107">107</a></td>
+                          <td class="source">                }</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__99">99</a></td>
                         </tr>            <tr id="dist/s3-store.js__78" class="hit">
                           <td class="line" data-tooltip>78</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source">            native: function (msg, reply) {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__108">108</a></td>
-                        </tr>            <tr id="dist/s3-store.js__79" class="chunks">
+                          <td class="hits" data-tooltip>3</td>
+                          <td class="source">                reply(err);</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__101">101</a></td>
+                        </tr>            <tr id="dist/s3-store.js__79" class="hit">
                           <td class="line" data-tooltip>79</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source"><div>                </div><div class="miss never" data-tooltip>reply();</div></td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__109">109</a></td>
+                          <td class="source">            });</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__103">103</a></td>
                         </tr>            <tr id="dist/s3-store.js__80" class="hit">
                           <td class="line" data-tooltip>80</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            },</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__110">110</a></td>
+                          <td class="source">        },</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__104">104</a></td>
                         </tr>            <tr id="dist/s3-store.js__81" class="hit">
                           <td class="line" data-tooltip>81</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">        };</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__111">111</a></td>
-                        </tr>            <tr id="dist/s3-store.js__82" class="hit">
+                          <td class="source">        close: function (msg, reply) {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__105">105</a></td>
+                        </tr>            <tr id="dist/s3-store.js__82" class="chunks">
                           <td class="line" data-tooltip>82</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>1</td>
-                          <td class="source">        let meta &#x3D; init(seneca, options, store);</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__113">113</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source"><div>            </div><div class="miss never" data-tooltip>reply();</div></td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__106">106</a></td>
                         </tr>            <tr id="dist/s3-store.js__83" class="hit">
                           <td class="line" data-tooltip>83</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>1</td>
-                          <td class="source">        return {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__115">115</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">        },</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__107">107</a></td>
                         </tr>            <tr id="dist/s3-store.js__84" class="hit">
                           <td class="line" data-tooltip>84</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            name: store.name,</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__116">116</a></td>
-                        </tr>            <tr id="dist/s3-store.js__85" class="hit">
+                          <td class="source">        native: function (msg, reply) {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__108">108</a></td>
+                        </tr>            <tr id="dist/s3-store.js__85" class="chunks">
                           <td class="line" data-tooltip>85</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            tag: meta.tag,</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__117">117</a></td>
+                          <td class="source"><div>            </div><div class="miss never" data-tooltip>reply();</div></td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__109">109</a></td>
                         </tr>            <tr id="dist/s3-store.js__86" class="hit">
                           <td class="line" data-tooltip>86</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            exportmap: {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__118">118</a></td>
+                          <td class="source">        },</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__110">110</a></td>
                         </tr>            <tr id="dist/s3-store.js__87" class="hit">
                           <td class="line" data-tooltip>87</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">                native: aws_s3,</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__119">119</a></td>
+                          <td class="source">    };</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__111">111</a></td>
                         </tr>            <tr id="dist/s3-store.js__88" class="hit">
                           <td class="line" data-tooltip>88</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source">            },</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__120">120</a></td>
+                          <td class="hits" data-tooltip>1</td>
+                          <td class="source">    let meta &#x3D; init(seneca, options, store);</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__113">113</a></td>
                         </tr>            <tr id="dist/s3-store.js__89" class="hit">
                           <td class="line" data-tooltip>89</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip></td>
-                          <td class="source">        };</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__121">121</a></td>
+                          <td class="hits" data-tooltip>1</td>
+                          <td class="source">    return {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__115">115</a></td>
                         </tr>            <tr id="dist/s3-store.js__90" class="hit">
                           <td class="line" data-tooltip>90</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">    });</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__122">122</a></td>
+                          <td class="source">        name: store.name,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__116">116</a></td>
                         </tr>            <tr id="dist/s3-store.js__91" class="hit">
                           <td class="line" data-tooltip>91</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">}</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__122">122</a></td>
+                          <td class="source">        tag: meta.tag,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__117">117</a></td>
                         </tr>            <tr id="dist/s3-store.js__92" class="hit">
                           <td class="line" data-tooltip>92</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">function make_s3id(id, ent, options) {</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__124">124</a></td>
-                        </tr>            <tr id="dist/s3-store.js__93" class="chunks">
+                          <td class="source">        exportmap: {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__118">118</a></td>
+                        </tr>            <tr id="dist/s3-store.js__93" class="hit">
                           <td class="line" data-tooltip>93</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source"><div>    return </div><div class="miss false" data-tooltip>null &#x3D;&#x3D; id</div></td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__125">125</a></td>
-                        </tr>            <tr id="dist/s3-store.js__94" class="chunks">
+                          <td class="source">            native: aws_s3,</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__119">119</a></td>
+                        </tr>            <tr id="dist/s3-store.js__94" class="hit">
                           <td class="line" data-tooltip>94</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source"><div>        ? </div><div class="miss never" data-tooltip>null</div></td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__126">126</a></td>
-                        </tr>            <tr id="dist/s3-store.js__95" class="chunks">
+                          <td class="source">        },</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__120">120</a></td>
+                        </tr>            <tr id="dist/s3-store.js__95" class="hit">
                           <td class="line" data-tooltip>95</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source"><div>        : (</div><div class="miss true" data-tooltip>null &#x3D;&#x3D; options.folder</div><div> ? options.prefix + ent.entity$ : </div><div class="miss never" data-tooltip>options.folder</div><div>) +</div></td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__127">127</a></td>
+                          <td class="source">    };</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__121">121</a></td>
                         </tr>            <tr id="dist/s3-store.js__96" class="hit">
                           <td class="line" data-tooltip>96</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            &#x27;/&#x27; +</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__128">128</a></td>
+                          <td class="source">}</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__122">122</a></td>
                         </tr>            <tr id="dist/s3-store.js__97" class="hit">
                           <td class="line" data-tooltip>97</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            id +</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__129">129</a></td>
-                        </tr>            <tr id="dist/s3-store.js__98" class="hit">
+                          <td class="source">function make_s3id(id, ent, options) {</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__124">124</a></td>
+                        </tr>            <tr id="dist/s3-store.js__98" class="chunks">
                           <td class="line" data-tooltip>98</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">            &#x27;.json&#x27;;</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__130">130</a></td>
-                        </tr>            <tr id="dist/s3-store.js__99" class="hit">
+                          <td class="source"><div>    return </div><div class="miss false" data-tooltip>null &#x3D;&#x3D; id</div></td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__125">125</a></td>
+                        </tr>            <tr id="dist/s3-store.js__99" class="chunks">
                           <td class="line" data-tooltip>99</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
-                          <td class="source">}</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__131">131</a></td>
-                        </tr>            <tr id="dist/s3-store.js__100" class="hit">
+                          <td class="source"><div>        ? </div><div class="miss never" data-tooltip>null</div></td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__126">126</a></td>
+                        </tr>            <tr id="dist/s3-store.js__100" class="chunks">
                           <td class="line" data-tooltip>100</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>1</td>
-                          <td class="source">Object.defineProperty(s3_store, &#x27;name&#x27;, { value: &#x27;s3-store&#x27; });</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__133">133</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source"><div>        : (</div><div class="miss true" data-tooltip>null &#x3D;&#x3D; options.folder</div><div> ? options.prefix + ent.entity$ : </div><div class="miss never" data-tooltip>options.folder</div><div>) +</div></td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__127">127</a></td>
                         </tr>            <tr id="dist/s3-store.js__101" class="hit">
                           <td class="line" data-tooltip>101</td>
                           <td class="lint empty"></td>
-                          <td class="hits" data-tooltip>1</td>
-                          <td class="source">module.exports &#x3D; s3_store;</td>
-                          <td class="original-line" data-tooltip="../s3-store.ts"><a href="#../s3-store.ts__134">134</a></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">            &#x27;/&#x27; +</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__128">128</a></td>
                         </tr>            <tr id="dist/s3-store.js__102" class="hit">
                           <td class="line" data-tooltip>102</td>
+                          <td class="lint empty"></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">            id +</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__129">129</a></td>
+                        </tr>            <tr id="dist/s3-store.js__103" class="hit">
+                          <td class="line" data-tooltip>103</td>
+                          <td class="lint empty"></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">            &#x27;.json&#x27;;</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__130">130</a></td>
+                        </tr>            <tr id="dist/s3-store.js__104" class="hit">
+                          <td class="line" data-tooltip>104</td>
+                          <td class="lint empty"></td>
+                          <td class="hits" data-tooltip></td>
+                          <td class="source">}</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__131">131</a></td>
+                        </tr>            <tr id="dist/s3-store.js__105" class="hit">
+                          <td class="line" data-tooltip>105</td>
+                          <td class="lint empty"></td>
+                          <td class="hits" data-tooltip>1</td>
+                          <td class="source">Object.defineProperty(s3_store, &#x27;name&#x27;, { value: &#x27;s3-store&#x27; });</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__133">133</a></td>
+                        </tr>            <tr id="dist/s3-store.js__106" class="hit">
+                          <td class="line" data-tooltip>106</td>
+                          <td class="lint empty"></td>
+                          <td class="hits" data-tooltip>1</td>
+                          <td class="source">module.exports &#x3D; s3_store;</td>
+                          <td class="original-line" data-tooltip="../src/s3-store.ts"><a href="#../src/s3-store.ts__134">134</a></td>
+                        </tr>            <tr id="dist/s3-store.js__107" class="hit">
+                          <td class="line" data-tooltip>107</td>
                           <td class="lint empty"></td>
                           <td class="hits" data-tooltip></td>
                           <td class="source">//# sourceMappingURL&#x3D;s3-store.js.map</td>
