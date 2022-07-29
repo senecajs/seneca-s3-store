@@ -1,6 +1,6 @@
 {
   "name": "@seneca/s3-store",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Entity store using AWS S3. Note: *not* for arbitrary binaries, just for Seneca data entities.",
   "main": "dist/s3-store.js",
   "type": "commonjs",
@@ -9,12 +9,12 @@
     "watch": "tsc -w -d",
     "test": "lab -v -P test -t 50 --sourcemaps --transform node_modules/lab-transform-typescript -I @@any-promise/REGISTRATION -r console -o stdout -r html -o test/coverage.html",
     "coveralls": "lab -s -P test -r lcov | coveralls",
-    "prettier": "prettier --write --no-semi --single-quote *.ts test/*.js",
+    "prettier": "prettier --write --no-semi --single-quote src/*.ts test/*.js",
     "build": "tsc -d",
     "clean": "rm -rf node_modules yarn.lock package-lock.json",
     "reset": "npm run clean && npm run build && npm i && npm test",
     "repo-tag": "REPO_VERSION=`node -e \"console.log(require('./package').version)\"` && echo TAG: v$REPO_VERSION && git commit -a -m v$REPO_VERSION && git push && git tag v$REPO_VERSION && git push --tags;",
-    "repo-publish": "npm run clean && npm run build && npm i && npm run repo-publish-quick",
+    "repo-publish": "npm run clean && npm i && npm run build && npm run repo-publish-quick",
     "repo-publish-quick": "npm run prettier && npm run build && npm run test && npm run repo-tag && npm publish --registry https://registry.npmjs.org --access public"
   },
   "repository": {
