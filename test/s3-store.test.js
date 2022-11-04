@@ -18,8 +18,7 @@ const expect = Code.expect
 //const describe = lab.describe
 //const it = lab.it
 
-
-const Plugin = require('..') 
+const Plugin = require('..')
 
 const test_opts = {
   name: 's3-store',
@@ -29,26 +28,24 @@ lab.before(async function () {
   test_opts.options = await makeOptions()
 
   // test_opts.seneca = Seneca({ require })
-  test_opts.seneca = Seneca({legacy: false})
+  test_opts.seneca = Seneca({ legacy: false })
     .test()
     .use('promisify')
     .use('entity', { mem_store: false })
 })
 
-
-lab.test('happy', async function() {
-  let s0 = Seneca({legacy:false})
-      .test()
-      .use('promisify')
-      .use('entity', { mem_store: false })
-      .use(Plugin, {
-        s3: {}
-      })
+lab.test('happy', async function () {
+  let s0 = Seneca({ legacy: false })
+    .test()
+    .use('promisify')
+    .use('entity', { mem_store: false })
+    .use(Plugin, {
+      s3: {},
+    })
 
   await s0.ready()
   console.log(s0.version)
 })
-
 
 Shared.test.init(lab, test_opts)
 Shared.test.keyvalue(lab, test_opts)
