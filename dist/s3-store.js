@@ -4,10 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const gubu_1 = require("gubu");
 const aws_sdk_1 = __importDefault(require("aws-sdk"));
 s3_store.defaults = {
     prefix: 'seneca/db01/',
-    folder: null,
+    folder: (0, gubu_1.Any)(null, ''),
+    s3: (0, gubu_1.Skip)({}),
+    map: (0, gubu_1.Skip)({}),
+    shared: (0, gubu_1.Skip)({}),
 };
 async function s3_store(options) {
     const seneca = this;

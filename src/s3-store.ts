@@ -1,10 +1,15 @@
 /* Copyright (c) 2020 Richard Rodger, MIT License */
 
+import { Skip, Any } from 'gubu'
+
 import AWS from 'aws-sdk'
 
 s3_store.defaults = {
   prefix: 'seneca/db01/',
-  folder: null,
+  folder: Any(null, ''),
+  s3: Skip({}),
+  map: Skip({}),
+  shared: Skip({}),
 }
 
 async function s3_store(this: any, options: any) {
@@ -18,7 +23,7 @@ async function s3_store(this: any, options: any) {
     ...options.shared,
   }
 
-  seneca.init(function (reply: () => void) {
+  seneca.init(function(reply: () => void) {
     // AWS SDK setup
 
     const s3_opts = {
@@ -33,7 +38,7 @@ async function s3_store(this: any, options: any) {
 
   let store = {
     name: 's3-store',
-    save: function (msg: any, reply: any) {
+    save: function(msg: any, reply: any) {
       let id = '' + (msg.ent.id || msg.ent.id$ || generate_id(msg.ent))
       let d = msg.ent.data$()
       d.id = id
@@ -54,7 +59,7 @@ async function s3_store(this: any, options: any) {
         }
       )
     },
-    load: function (msg: any, reply: any) {
+    load: function(msg: any, reply: any) {
       let qent = msg.qent
       let id = '' + msg.q.id
 
@@ -79,10 +84,10 @@ async function s3_store(this: any, options: any) {
         }
       )
     },
-    list: function (msg: any, reply: any) {
+    list: function(msg: any, reply: any) {
       reply([])
     },
-    remove: function (msg: any, reply: any) {
+    remove: function(msg: any, reply: any) {
       let qent = msg.qent
       let id = '' + msg.q.id
 
@@ -102,10 +107,10 @@ async function s3_store(this: any, options: any) {
         }
       )
     },
-    close: function (msg: any, reply: () => void) {
+    close: function(msg: any, reply: () => void) {
       reply()
     },
-    native: function (msg: any, reply: () => void) {
+    native: function(msg: any, reply: () => void) {
       reply()
     },
   }
@@ -125,9 +130,9 @@ function make_s3id(id: string, ent: any, options: any) {
   return null == id
     ? null
     : (null == options.folder ? options.prefix + ent.entity$ : options.folder) +
-        '/' +
-        id +
-        '.json'
+    '/' +
+    id +
+    '.json'
 }
 
 Object.defineProperty(s3_store, 'name', { value: 's3-store' })
