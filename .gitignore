@@ -106,5 +106,6 @@ typings/
 
 # AWS credentials
 test/aws-s3-opts.json
+test/s3data
 
 
