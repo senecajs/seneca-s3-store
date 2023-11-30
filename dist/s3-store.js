@@ -2,7 +2,7 @@
 /* Copyright (c) 2020-2023 Richard Rodger, MIT License */
 Object.defineProperty(exports, "__esModule", { value: true });
 const gubu_1 = require("gubu");
-const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand, } = require("@aws-sdk/client-s3");
+const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand, } = require('@aws-sdk/client-s3');
 // TODO: ent fields as dot paths
 s3_store.defaults = {
     prefix: 'seneca/db01/',
@@ -17,7 +17,7 @@ s3_store.defaults = {
         jsonl: (0, gubu_1.Skip)(String),
         // Save a sub field as binary. NOTE: Other fields are LOST!
         bin: (0, gubu_1.Skip)(String),
-    }))
+    })),
 };
 async function s3_store(options) {
     const seneca = this;
@@ -76,7 +76,7 @@ async function s3_store(options) {
             const s3cmd = new PutObjectCommand({
                 ...s3_shared_options,
                 Key: s3id,
-                Body
+                Body,
             });
             aws_s3
                 .send(s3cmd)
@@ -98,9 +98,7 @@ async function s3_store(options) {
             let output = 'ent';
             let jsonl = (entSpec === null || entSpec === void 0 ? void 0 : entSpec.jsonl) || msg.jsonl$ || msg.q.jsonl$;
             let bin = (entSpec === null || entSpec === void 0 ? void 0 : entSpec.bin) || msg.bin$ || msg.q.bin$;
-            output = (jsonl && '' != jsonl) ? 'jsonl' :
-                (bin && '' != bin) ? 'bin' :
-                    'ent';
+            output = jsonl && '' != jsonl ? 'jsonl' : bin && '' != bin ? 'bin' : 'ent';
             const s3cmd = new GetObjectCommand({
                 ...s3_shared_options,
                 Key: s3id,
@@ -114,7 +112,8 @@ async function s3_store(options) {
                     let entdata = {};
                     // console.log('DES', output, body)
                     if ('jsonl' === output) {
-                        entdata[jsonl] = body.split('\n')
+                        entdata[jsonl] = body
+                            .split('\n')
                             .filter((n) => '' !== n)
                             .map((n) => JSON.parse(n));
                     }

@@ -7,11 +7,9 @@ const {
   PutObjectCommand,
   GetObjectCommand,
   DeleteObjectCommand,
-} = require("@aws-sdk/client-s3")
-
+} = require('@aws-sdk/client-s3')
 
 // TODO: ent fields as dot paths
-
 
 s3_store.defaults = {
   prefix: 'seneca/db01/',
@@ -24,13 +22,16 @@ s3_store.defaults = {
   shared: Skip({}),
 
   // keys are canon strings
-  ent: Default({}, Child({
-    // Save a sub array as JSONL. NOTE: Other fields are LOST!
-    jsonl: Skip(String),
+  ent: Default(
+    {},
+    Child({
+      // Save a sub array as JSONL. NOTE: Other fields are LOST!
+      jsonl: Skip(String),
 
-    // Save a sub field as binary. NOTE: Other fields are LOST!
-    bin: Skip(String),
-  }))
+      // Save a sub field as binary. NOTE: Other fields are LOST!
+      bin: Skip(String),
+    }),
+  ),
 }
 
 async function s3_store(this: any, options: any) {
@@ -44,7 +45,7 @@ async function s3_store(this: any, options: any) {
     ...options.shared,
   }
 
-  seneca.init(function(reply: () => void) {
+  seneca.init(function (reply: () => void) {
     // AWS SDK setup
 
     const s3_opts = {
@@ -58,10 +59,9 @@ async function s3_store(this: any, options: any) {
     reply()
   })
 
-
   let store = {
     name: 's3-store',
-    save: function(msg: any, reply: any) {
+    save: function (msg: any, reply: any) {
       // console.log('MSG', msg)
 
       let canon = msg.ent.entity$
@@ -80,16 +80,19 @@ async function s3_store(this: any, options: any) {
         if ('string' === typeof jsonl && '' !== jsonl) {
           let arr = msg.ent[jsonl]
           if (!Array.isArray(arr)) {
-            throw new Error('s3-store: option ent.jsonl array field not found: ' + jsonl)
+            throw new Error(
+              's3-store: option ent.jsonl array field not found: ' + jsonl,
+            )
           }
 
           let content = arr.map((n: any) => JSON.stringify(n)).join('\n') + '\n'
           Body = Buffer.from(content)
-        }
-        else if ('string' === typeof bin && '' !== bin) {
+        } else if ('string' === typeof bin && '' !== bin) {
           let data = msg.ent[bin]
           if (null == data) {
-            throw new Error('s3-store: option ent.bin data field not found: ' + bin)
+            throw new Error(
+              's3-store: option ent.bin data field not found: ' + bin,
+            )
           }
 
           Body = Buffer.from(data)
@@ -106,7 +109,7 @@ async function s3_store(this: any, options: any) {
       const s3cmd = new PutObjectCommand({
         ...s3_shared_options,
         Key: s3id,
-        Body
+        Body,
       })
 
       aws_s3
@@ -120,7 +123,7 @@ async function s3_store(this: any, options: any) {
         })
     },
 
-    load: function(msg: any, reply: any) {
+    load: function (msg: any, reply: any) {
       // console.log('MSG', msg)
 
       let canon = msg.ent.entity$
@@ -133,9 +136,7 @@ async function s3_store(this: any, options: any) {
       let jsonl = entSpec?.jsonl || msg.jsonl$ || msg.q.jsonl$
       let bin = entSpec?.bin || msg.bin$ || msg.q.bin$
 
-      output = (jsonl && '' != jsonl) ? 'jsonl' :
-        (bin && '' != bin) ? 'bin' :
-          'ent'
+      output = jsonl && '' != jsonl ? 'jsonl' : bin && '' != bin ? 'bin' : 'ent'
 
       const s3cmd = new GetObjectCommand({
         ...s3_shared_options,
@@ -154,14 +155,13 @@ async function s3_store(this: any, options: any) {
               // console.log('DES', output, body)
 
               if ('jsonl' === output) {
-                entdata[jsonl] = body.split('\n')
+                entdata[jsonl] = body
+                  .split('\n')
                   .filter((n: string) => '' !== n)
                   .map((n: string) => JSON.parse(n))
-              }
-              else if ('bin' === output) {
+              } else if ('bin' === output) {
                 entdata[bin] = body
-              }
-              else {
+              } else {
                 entdata = JSON.parse(body)
               }
 
@@ -180,11 +180,11 @@ async function s3_store(this: any, options: any) {
           reply(err)
         })
     },
-    list: function(_msg: any, reply: any) {
+    list: function (_msg: any, reply: any) {
       reply([])
     },
 
-    remove: function(msg: any, reply: any) {
+    remove: function (msg: any, reply: any) {
       // let qent = msg.qent
       let id = '' + msg.q.id
 
@@ -194,7 +194,6 @@ async function s3_store(this: any, options: any) {
         ...s3_shared_options,
         Key: s3id,
       })
-
 
       aws_s3
         .send(s3cmd)
@@ -209,10 +208,10 @@ async function s3_store(this: any, options: any) {
           reply(err)
         })
     },
-    close: function(_msg: any, reply: () => void) {
+    close: function (_msg: any, reply: () => void) {
       reply()
     },
-    native: function(_msg: any, reply: () => void) {
+    native: function (_msg: any, reply: () => void) {
       reply()
     },
   }
@@ -232,23 +231,21 @@ function make_s3id(id: string, ent: any, options: any) {
   return null == id
     ? null
     : (null == options.folder ? options.prefix + ent.entity$ : options.folder) +
-    '/' +
-    id +
-    '.json'
+        '/' +
+        id +
+        '.json'
 }
-
 
 async function destream(output: 'ent' | 'jsonl' | 'bin', stream: any) {
   return new Promise((resolve, reject) => {
-    const chunks: any = [];
+    const chunks: any = []
     stream.on('data', (chunk: any) => chunks.push(chunk))
     stream.on('error', reject)
     stream.on('end', () => {
       let buffer = Buffer.concat(chunks)
       if ('bin' === output) {
         resolve(buffer)
-      }
-      else {
+      } else {
         resolve(buffer.toString('utf-8'))
       }
     })

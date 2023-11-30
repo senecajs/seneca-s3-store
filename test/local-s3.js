@@ -5,14 +5,13 @@ const Fs = require('fs')
 
 const S3rver = require('s3rver')
 
-
 async function LocalS3() {
   const corsConfig = require.resolve('s3rver/example/cors.xml')
   const websiteConfig = require.resolve('s3rver/example/website.xml')
 
   const s3rver = new S3rver({
     silent: true,
-    directory: __dirname+'/s3data/'+(Date.now()%1e8),
+    directory: __dirname + '/s3data/' + (Date.now() % 1e8),
     configureBuckets: [
       {
         name: 'test-bucket.localhost',
@@ -36,11 +35,11 @@ async function LocalS3() {
       },
       shared: {
         Bucket: 'test-bucket',
-      }
-    }
+      },
+    },
   }
 }
 
 module.exports = {
-  LocalS3
+  LocalS3,
 }
