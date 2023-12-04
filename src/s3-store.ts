@@ -69,7 +69,7 @@ async function s3_store(this: any, options: any) {
     if(options?.local?.active) {
       let folder: string = options.local.folder
       local_folder = 'genid' == options.local.folderSuffix ? 
-          folder+'-'+seneca.util.Nid() : folder
+        folder+'-'+seneca.util.Nid() : folder
     }
 
     reply()
