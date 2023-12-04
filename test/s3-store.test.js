@@ -76,6 +76,7 @@ lab.test('jsonl', async function () {
   let options = Seneca.util.deep(test_opts.options, {
     ent: {
       '-/optent/color': { jsonl: 'parts' },
+      '-/directive/color': { jsonl: 'parts' }
     },
     /*
     local: {
@@ -129,6 +130,7 @@ lab.test('bin', async function () {
   let options = Seneca.util.deep(test_opts.options, {
     ent: {
       '-/optent/planet': { bin: 'map' },
+      '-/directive/planet': { bin: 'map' }
     },
     /*
     local: {
