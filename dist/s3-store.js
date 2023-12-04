@@ -19,7 +19,7 @@ s3_store.defaults = {
     local: (0, gubu_1.Skip)({
         active: (0, gubu_1.Default)(false, Boolean),
         folder: (0, gubu_1.Skip)(String),
-        folderSuffix: (0, gubu_1.Default)('none', String)
+        folderSuffix: (0, gubu_1.Exact)('none', 'genid')
     }),
     // keys are canon strings
     ent: (0, gubu_1.Default)({}, (0, gubu_1.Child)({

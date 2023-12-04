@@ -3,7 +3,7 @@
 import Path from 'path'
 import Fs from 'fs/promises'
 
-import { Default, Skip, Any, Child } from 'gubu'
+import { Default, Skip, Any, Exact, Child } from 'gubu'
 
 const {
   S3Client,
@@ -27,7 +27,7 @@ s3_store.defaults = {
   local: Skip({
     active: Default(false, Boolean),
     folder: Skip(String),
-    folderSuffix: Default('none', String)
+    folderSuffix: Exact('none', 'genid')
   }),
 
   // keys are canon strings
