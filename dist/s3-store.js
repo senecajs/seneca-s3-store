@@ -142,8 +142,6 @@ async function s3_store(options) {
             output = jsonl && '' != jsonl ? 'jsonl' : bin && '' != bin ? 'bin' : 'ent';
             if ((_a = options === null || options === void 0 ? void 0 : options.local) === null || _a === void 0 ? void 0 : _a.active) {
                 let full = path_1.default.join(local_folder, s3id || id);
-                let path = path_1.default.dirname(full);
-                // console.log('dirname: ', path )
                 promises_1.default.readFile(full)
                     .then((body) => {
                     let entdata = {};
@@ -223,7 +221,6 @@ async function s3_store(options) {
             let s3id = make_s3id(id, msg.ent, options);
             if ((_a = options === null || options === void 0 ? void 0 : options.local) === null || _a === void 0 ? void 0 : _a.active) {
                 let full = path_1.default.join(local_folder, s3id || id);
-                let path = path_1.default.dirname(full);
                 promises_1.default.unlink(full)
                     .then((_res) => {
                     reply();

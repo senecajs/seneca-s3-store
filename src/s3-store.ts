@@ -182,9 +182,6 @@ async function s3_store(this: any, options: any) {
       if(options?.local?.active) {
         
         let full: string = Path.join(local_folder, s3id || id)
-        let path: string = Path.dirname(full)
-        
-        // console.log('dirname: ', path )
 
         Fs.readFile(full)
           .then((body: any) => {
@@ -278,7 +275,6 @@ async function s3_store(this: any, options: any) {
       if(options?.local?.active) {
         
         let full: string = Path.join(local_folder, s3id || id)
-        let path: string = Path.dirname(full)
         
         Fs.unlink(full)
           .then((_res: any) => {
