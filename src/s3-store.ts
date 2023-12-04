@@ -49,6 +49,7 @@ async function s3_store(this: any, options: any) {
 
   let generate_id = options.generate_id || seneca.export('entity/generate_id')
   let aws_s3: any = null
+  let local_folder: string = ''
   let s3_shared_options = {
     Bucket: '!not-a-bucket!',
     ...options.shared,
@@ -64,6 +65,12 @@ async function s3_store(this: any, options: any) {
 
     // aws_s3 = new AWS.S3(s3_opts)
     aws_s3 = !options?.local?.active ? new S3Client(s3_opts) : null
+    
+    if(options?.local?.active) {
+      let folder: string = options.local.folder
+      local_folder = 'genid' == options.local.folderSuffix ? 
+          folder+'-'+seneca.util.Nid() : folder
+    }
 
     reply()
   })
@@ -118,11 +125,8 @@ async function s3_store(this: any, options: any) {
       // console.log('options:: ', options, seneca.util.Nid() )
       
       if(options?.local?.active) {
-        let folder: string = options.local.folder
-        folder = 'genid' == options.local.folderSuffix ? 
-          folder+'-'+seneca.util.Nid() : folder
         
-        let full: string = Path.join(folder, s3id || id)
+        let full: string = Path.join(local_folder, s3id || id)
         let path: string = Path.dirname(full)
         
         // console.log('dirname: ', path )
@@ -176,11 +180,8 @@ async function s3_store(this: any, options: any) {
       output = jsonl && '' != jsonl ? 'jsonl' : bin && '' != bin ? 'bin' : 'ent'
       
       if(options?.local?.active) {
-        let folder: string = options.local.folder
-        folder = 'genid' == options.local.folderSuffix ? 
-          folder+'-'+seneca.util.Nid() : folder
         
-        let full: string = Path.join(folder, s3id || id)
+        let full: string = Path.join(local_folder, s3id || id)
         let path: string = Path.dirname(full)
         
         // console.log('dirname: ', path )
@@ -275,11 +276,8 @@ async function s3_store(this: any, options: any) {
       let s3id = make_s3id(id, msg.ent, options)
       
       if(options?.local?.active) {
-        let folder: string = options.local.folder
-        folder = 'genid' == options.local.folderSuffix ? 
-          folder+'-'+seneca.util.Nid() : folder
         
-        let full: string = Path.join(folder, s3id || id)
+        let full: string = Path.join(local_folder, s3id || id)
         let path: string = Path.dirname(full)
         
         Fs.unlink(full)
