@@ -51,11 +51,39 @@ lab.test('happy', async function () {
 Shared.test.init(lab, test_opts)
 Shared.test.keyvalue(lab, test_opts)
 
+const local_opts = {
+  name: 's3-store',
+  options: {
+    local: {
+      active: true,
+      folder: __dirname+'/s3files',
+      folderSuffix: 'none'
+    }
+  }
+}
+
+lab.before(async function () {
+  local_opts.seneca = Seneca({ legacy: false })
+    .test()
+    .use('promisify')
+    .use('entity', { mem_store: false })
+})
+
+Shared.test.init(lab, local_opts)
+Shared.test.keyvalue(lab, local_opts)
+
 lab.test('jsonl', async function () {
   let options = Seneca.util.deep(test_opts.options, {
     ent: {
       '-/optent/color': { jsonl: 'parts' },
     },
+    /*
+    local: {
+      active: true,
+      folder: __dirname+'/s3files',
+      folderSuffix: 'none'
+    }
+    */
   })
 
   let s0 = Seneca({ legacy: false })
@@ -102,6 +130,13 @@ lab.test('bin', async function () {
     ent: {
       '-/optent/planet': { bin: 'map' },
     },
+    /*
+    local: {
+      active: true,
+      folder: __dirname+'/s3files',
+      folderSuffix: 'none'
+    }
+    */
   })
 
   let s0 = Seneca({ legacy: false })
