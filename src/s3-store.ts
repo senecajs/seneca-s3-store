@@ -64,9 +64,9 @@ async function s3_store(this: any, options: any) {
     }
 
     // aws_s3 = new AWS.S3(s3_opts)
-    aws_s3 = !options?.local?.active ? new S3Client(s3_opts) : null
+    aws_s3 = !options.local?.active ? new S3Client(s3_opts) : null
     
-    if(options?.local?.active) {
+    if (options.local?.active) {
       let folder: string = options.local.folder
       local_folder = 'genid' == options.local.folderSuffix ? 
         folder+'-'+seneca.util.Nid() : folder
@@ -124,7 +124,7 @@ async function s3_store(this: any, options: any) {
 
       // console.log('options:: ', options, seneca.util.Nid() )
       
-      if(options?.local?.active) {
+      if(options.local?.active) {
         
         let full: string = Path.join(local_folder, s3id || id)
         let path: string = Path.dirname(full)
@@ -179,7 +179,7 @@ async function s3_store(this: any, options: any) {
 
       output = jsonl && '' != jsonl ? 'jsonl' : bin && '' != bin ? 'bin' : 'ent'
       
-      if(options?.local?.active) {
+      if(options.local?.active) {
         
         let full: string = Path.join(local_folder, s3id || id)
 
@@ -272,7 +272,7 @@ async function s3_store(this: any, options: any) {
 
       let s3id = make_s3id(id, msg.ent, options)
       
-      if(options?.local?.active) {
+      if(options.local?.active) {
         
         let full: string = Path.join(local_folder, s3id || id)
         

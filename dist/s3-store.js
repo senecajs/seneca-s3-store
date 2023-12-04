@@ -47,8 +47,8 @@ async function s3_store(options) {
             ...options.s3,
         };
         // aws_s3 = new AWS.S3(s3_opts)
-        aws_s3 = !((_a = options === null || options === void 0 ? void 0 : options.local) === null || _a === void 0 ? void 0 : _a.active) ? new S3Client(s3_opts) : null;
-        if ((_b = options === null || options === void 0 ? void 0 : options.local) === null || _b === void 0 ? void 0 : _b.active) {
+        aws_s3 = !((_a = options.local) === null || _a === void 0 ? void 0 : _a.active) ? new S3Client(s3_opts) : null;
+        if ((_b = options.local) === null || _b === void 0 ? void 0 : _b.active) {
             let folder = options.local.folder;
             local_folder = 'genid' == options.local.folderSuffix ?
                 folder + '-' + seneca.util.Nid() : folder;
@@ -92,7 +92,7 @@ async function s3_store(options) {
             }
             // console.log('BODY', Body, entSpec?.bin ? '' : '<' + Body.toString() + '>')
             // console.log('options:: ', options, seneca.util.Nid() )
-            if ((_a = options === null || options === void 0 ? void 0 : options.local) === null || _a === void 0 ? void 0 : _a.active) {
+            if ((_a = options.local) === null || _a === void 0 ? void 0 : _a.active) {
                 let full = path_1.default.join(local_folder, s3id || id);
                 let path = path_1.default.dirname(full);
                 // console.log('dirname: ', path )
@@ -140,7 +140,7 @@ async function s3_store(options) {
             let jsonl = (entSpec === null || entSpec === void 0 ? void 0 : entSpec.jsonl) || msg.jsonl$ || msg.q.jsonl$;
             let bin = (entSpec === null || entSpec === void 0 ? void 0 : entSpec.bin) || msg.bin$ || msg.q.bin$;
             output = jsonl && '' != jsonl ? 'jsonl' : bin && '' != bin ? 'bin' : 'ent';
-            if ((_a = options === null || options === void 0 ? void 0 : options.local) === null || _a === void 0 ? void 0 : _a.active) {
+            if ((_a = options.local) === null || _a === void 0 ? void 0 : _a.active) {
                 let full = path_1.default.join(local_folder, s3id || id);
                 promises_1.default.readFile(full)
                     .then((body) => {
@@ -219,7 +219,7 @@ async function s3_store(options) {
             // let qent = msg.qent
             let id = '' + msg.q.id;
             let s3id = make_s3id(id, msg.ent, options);
-            if ((_a = options === null || options === void 0 ? void 0 : options.local) === null || _a === void 0 ? void 0 : _a.active) {
+            if ((_a = options.local) === null || _a === void 0 ? void 0 : _a.active) {
                 let full = path_1.default.join(local_folder, s3id || id);
                 promises_1.default.unlink(full)
                     .then((_res) => {
