@@ -3,7 +3,7 @@
 import Path from 'path'
 import Fsp from 'fs/promises'
 
-import { Default, Skip, Any, Exact, Child } from 'gubu'
+import { Default, Skip, Any, Exact, Child, Empty } from 'gubu'
 
 import {
   S3Client,
@@ -15,8 +15,8 @@ import {
 // TODO: ent fields as dot paths
 
 s3_store.defaults = {
-  prefix: 'seneca/db01/',
-  suffix: '.json',
+  prefix: Empty('seneca/db01/'),
+  suffix: Empty('.json'),
   folder: Any(),
   s3: {},
 
@@ -210,6 +210,7 @@ async function s3_store(this: any, options: any) {
       // Local file
       if (options.local.active) {
         let full: string = Path.join(local_folder, s3id || id)
+        // console.log('FULL', full)
 
         Fsp.readFile(full)
           .then((body: any) => {

@@ -10,8 +10,8 @@ const gubu_1 = require("gubu");
 const client_s3_1 = require("@aws-sdk/client-s3");
 // TODO: ent fields as dot paths
 s3_store.defaults = {
-    prefix: 'seneca/db01/',
-    suffix: '.json',
+    prefix: (0, gubu_1.Empty)('seneca/db01/'),
+    suffix: (0, gubu_1.Empty)('.json'),
     folder: (0, gubu_1.Any)(),
     s3: {},
     // keys are canon strings
@@ -167,6 +167,7 @@ async function s3_store(options) {
             // Local file
             if (options.local.active) {
                 let full = path_1.default.join(local_folder, s3id || id);
+                // console.log('FULL', full)
                 promises_1.default.readFile(full)
                     .then((body) => {
                     replyEnt(body);
