@@ -1,6 +1,9 @@
 /* Copyright (c) 2020-2023 Richard Rodger, MIT License */
 
-import { Default, Skip, Any, Child } from 'gubu'
+import Path from 'path'
+import Fs from 'fs/promises'
+
+import { Default, Skip, Any, Exact, Child } from 'gubu'
 
 const {
   S3Client,
@@ -20,6 +23,12 @@ s3_store.defaults = {
   map: Skip({}),
 
   shared: Skip({}),
+  
+  local: Skip({
+    active: Default(false, Boolean),
+    folder: Skip(String),
+    folderSuffix: Exact('none', 'genid')
+  }),
 
   // keys are canon strings
   ent: Default(
@@ -40,6 +49,7 @@ async function s3_store(this: any, options: any) {
 
   let generate_id = options.generate_id || seneca.export('entity/generate_id')
   let aws_s3: any = null
+  let local_folder: string = ''
   let s3_shared_options = {
     Bucket: '!not-a-bucket!',
     ...options.shared,
@@ -54,7 +64,13 @@ async function s3_store(this: any, options: any) {
     }
 
     // aws_s3 = new AWS.S3(s3_opts)
-    aws_s3 = new S3Client(s3_opts)
+    aws_s3 = !options.local?.active ? new S3Client(s3_opts) : null
+    
+    if (options.local?.active) {
+      let folder: string = options.local.folder
+      local_folder = 'genid' == options.local.folderSuffix ? 
+        folder+'-'+seneca.util.Nid() : folder
+    }
 
     reply()
   })
@@ -106,21 +122,46 @@ async function s3_store(this: any, options: any) {
 
       // console.log('BODY', Body, entSpec?.bin ? '' : '<' + Body.toString() + '>')
 
-      const s3cmd = new PutObjectCommand({
-        ...s3_shared_options,
-        Key: s3id,
-        Body,
-      })
-
-      aws_s3
-        .send(s3cmd)
-        .then((_res: any) => {
-          let ento = msg.ent.make$().data$(d)
-          reply(null, ento)
+      // console.log('options:: ', options, seneca.util.Nid() )
+      
+      if(options.local?.active) {
+        
+        let full: string = Path.join(local_folder, s3id || id)
+        let path: string = Path.dirname(full)
+        
+        // console.log('dirname: ', path )
+        Fs.mkdir(path, { recursive: true })
+          .then((out: any) => {
+            Body && Fs.writeFile(full, Body)
+              .then((_res: any) => {
+                let ento = msg.ent.make$().data$(d)
+                reply(null, ento)
+              })
+              .catch((err: any) => {
+                 reply(err)
+            })
         })
         .catch((err: any) => {
           reply(err)
         })
+      }
+      else {
+        const s3cmd = new PutObjectCommand({
+          ...s3_shared_options,
+          Key: s3id,
+          Body,
+        })
+
+        aws_s3
+          .send(s3cmd)
+          .then((_res: any) => {
+            let ento = msg.ent.make$().data$(d)
+            reply(null, ento)
+          })
+          .catch((err: any) => {
+            reply(err)
+          })
+      }
     },
 
     load: function (msg: any, reply: any) {
@@ -137,48 +178,89 @@ async function s3_store(this: any, options: any) {
       let bin = entSpec?.bin || msg.bin$ || msg.q.bin$
 
       output = jsonl && '' != jsonl ? 'jsonl' : bin && '' != bin ? 'bin' : 'ent'
+      
+      if(options.local?.active) {
+        
+        let full: string = Path.join(local_folder, s3id || id)
 
-      const s3cmd = new GetObjectCommand({
-        ...s3_shared_options,
-        Key: s3id,
-      })
+        Fs.readFile(full)
+          .then((body: any) => {
+          
+            let entdata: any = {}
 
-      aws_s3
-        .send(s3cmd)
-        .then((res: any) => {
-          // console.log(res)
+            // console.log('DES', output, body)
+            if ('bin' !== output) {
+              body = body.toString('utf-8')
+            }
 
-          destream(output, res.Body)
-            .then((body: any) => {
-              let entdata: any = {}
+            if ('jsonl' === output) {
+              entdata[jsonl] = body
+                .split('\n')
+                .filter((n: string) => '' !== n)
+                .map((n: string) => JSON.parse(n))
+            } else if ('bin' === output) {
+              entdata[bin] = body
+            } else {
+              entdata = JSON.parse(body)
+            }
 
-              // console.log('DES', output, body)
+            entdata.id = id
 
-              if ('jsonl' === output) {
-                entdata[jsonl] = body
-                  .split('\n')
-                  .filter((n: string) => '' !== n)
-                  .map((n: string) => JSON.parse(n))
-              } else if ('bin' === output) {
-                entdata[bin] = body
-              } else {
-                entdata = JSON.parse(body)
-              }
+            let ento = qent.make$().data$(entdata)
+            reply(null, ento)
+          })
+          .catch((err: any) => {
+            if ('ENOENT' == err.code) {
+              return reply()
+            }
+            reply(err)
+          })
+            
+      }
+      else {
 
-              entdata.id = id
-
-              let ento = qent.make$().data$(entdata)
-              reply(null, ento)
-            })
-            .catch((err) => reply(err))
+        const s3cmd = new GetObjectCommand({
+          ...s3_shared_options,
+          Key: s3id,
         })
-        .catch((err: any) => {
-          if ('NoSuchKey' === err.Code) {
-            return reply()
-          }
 
-          reply(err)
-        })
+        aws_s3
+          .send(s3cmd)
+          .then((res: any) => {
+            // console.log(res)
+
+            destream(output, res.Body)
+              .then((body: any) => {
+                let entdata: any = {}
+
+                // console.log('DES', output, body)
+
+                if ('jsonl' === output) {
+                  entdata[jsonl] = body
+                    .split('\n')
+                    .filter((n: string) => '' !== n)
+                    .map((n: string) => JSON.parse(n))
+                } else if ('bin' === output) {
+                  entdata[bin] = body
+                } else {
+                  entdata = JSON.parse(body)
+                }
+
+                entdata.id = id
+
+                let ento = qent.make$().data$(entdata)
+                reply(null, ento)
+              })
+              .catch((err) => reply(err))
+          })
+          .catch((err: any) => {
+            if ('NoSuchKey' === err.Code) {
+              return reply()
+            }
+
+            reply(err)
+          })
+      }
     },
     list: function (_msg: any, reply: any) {
       reply([])
@@ -189,24 +271,42 @@ async function s3_store(this: any, options: any) {
       let id = '' + msg.q.id
 
       let s3id = make_s3id(id, msg.ent, options)
+      
+      if(options.local?.active) {
+        
+        let full: string = Path.join(local_folder, s3id || id)
+        
+        Fs.unlink(full)
+          .then((_res: any) => {
+            reply()
+          })
+          .catch((err: any) => {
+            if ('ENOENT' == err.code) {
+              return reply()
+            }
+            reply(err)
+          })
+      }
+      else {
 
-      const s3cmd = new DeleteObjectCommand({
-        ...s3_shared_options,
-        Key: s3id,
-      })
-
-      aws_s3
-        .send(s3cmd)
-        .then((_res: any) => {
-          reply()
+        const s3cmd = new DeleteObjectCommand({
+          ...s3_shared_options,
+          Key: s3id,
         })
-        .catch((err: any) => {
-          if ('NoSuchKey' === err.Code) {
-            return reply()
-          }
 
-          reply(err)
-        })
+        aws_s3
+          .send(s3cmd)
+          .then((_res: any) => {
+            reply()
+          })
+          .catch((err: any) => {
+            if ('NoSuchKey' === err.Code) {
+              return reply()
+            }
+
+            reply(err)
+          })
+      }
     },
     close: function (_msg: any, reply: () => void) {
       reply()
