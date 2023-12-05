@@ -11,6 +11,7 @@ const client_s3_1 = require("@aws-sdk/client-s3");
 // TODO: ent fields as dot paths
 s3_store.defaults = {
     prefix: 'seneca/db01/',
+    suffix: '.json',
     folder: (0, gubu_1.Any)(),
     s3: {},
     // keys are canon strings
@@ -265,7 +266,7 @@ function make_s3id(id, ent, options) {
             : options.folder) +
             ('' == options.folder ? '' : '/') +
             id +
-            '.json';
+            options.suffix;
     // console.log('make_s3id', s3id, id, ent, options)
     return s3id;
 }

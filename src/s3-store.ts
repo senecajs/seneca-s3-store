@@ -16,6 +16,7 @@ import {
 
 s3_store.defaults = {
   prefix: 'seneca/db01/',
+  suffix: '.json',
   folder: Any(),
   s3: {},
 
@@ -325,7 +326,7 @@ function make_s3id(id: string, ent: any, options: any) {
           : options.folder) +
         ('' == options.folder ? '' : '/') +
         id +
-        '.json'
+        options.suffix
 
   // console.log('make_s3id', s3id, id, ent, options)
   return s3id
