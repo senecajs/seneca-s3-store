@@ -24,6 +24,11 @@ const { LocalS3 } = require('./local-s3.js')
 
 const test_opts = {
   name: 's3-store',
+  options: {
+    s3: {
+      region: 'eu-west-1'
+    }
+  }
 }
 
 lab.before(async function () {

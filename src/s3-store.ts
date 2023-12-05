@@ -45,7 +45,7 @@ async function s3_store(this: any, options: any) {
     ...options.shared,
   }
 
-  seneca.init(function (reply: () => void) {
+  seneca.init(function(reply: () => void) {
     // AWS SDK setup
 
     const s3_opts = {
@@ -61,7 +61,7 @@ async function s3_store(this: any, options: any) {
 
   let store = {
     name: 's3-store',
-    save: function (msg: any, reply: any) {
+    save: function(msg: any, reply: any) {
       // console.log('MSG', msg)
 
       let canon = msg.ent.entity$
@@ -123,7 +123,7 @@ async function s3_store(this: any, options: any) {
         })
     },
 
-    load: function (msg: any, reply: any) {
+    load: function(msg: any, reply: any) {
       // console.log('MSG', msg)
 
       let canon = msg.ent.entity$
@@ -180,11 +180,11 @@ async function s3_store(this: any, options: any) {
           reply(err)
         })
     },
-    list: function (_msg: any, reply: any) {
+    list: function(_msg: any, reply: any) {
       reply([])
     },
 
-    remove: function (msg: any, reply: any) {
+    remove: function(msg: any, reply: any) {
       // let qent = msg.qent
       let id = '' + msg.q.id
 
@@ -208,10 +208,10 @@ async function s3_store(this: any, options: any) {
           reply(err)
         })
     },
-    close: function (_msg: any, reply: () => void) {
+    close: function(_msg: any, reply: () => void) {
       reply()
     },
-    native: function (_msg: any, reply: () => void) {
+    native: function(_msg: any, reply: () => void) {
       reply()
     },
   }
@@ -231,9 +231,9 @@ function make_s3id(id: string, ent: any, options: any) {
   return null == id
     ? null
     : (null == options.folder ? options.prefix + ent.entity$ : options.folder) +
-        '/' +
-        id +
-        '.json'
+    '/' +
+    id +
+    '.json'
 }
 
 async function destream(output: 'ent' | 'jsonl' | 'bin', stream: any) {
