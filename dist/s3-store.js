@@ -8,6 +8,7 @@ const path_1 = __importDefault(require("path"));
 const promises_1 = __importDefault(require("fs/promises"));
 const gubu_1 = require("gubu");
 const client_s3_1 = require("@aws-sdk/client-s3");
+const s3_request_presigner_1 = require("@aws-sdk/s3-request-presigner");
 // TODO: ent fields as dot paths
 s3_store.defaults = {
     prefix: (0, gubu_1.Empty)('seneca/db01/'),
@@ -251,6 +252,52 @@ async function s3_store(options) {
         },
     };
     let meta = init(seneca, options, store);
+    seneca.message('cloud:aws,service:store,get:url,kind:upload', {
+        bucket: String,
+        filepath: String,
+        expire: Number,
+    }, get_upload_url);
+    seneca.message('cloud:aws,service:store,get:url,kind:download', {
+        bucket: String,
+        filepath: String,
+        expire: Number,
+    }, get_download_url);
+    async function get_upload_url(msg) {
+        const bucket = msg.bucket;
+        const filepath = msg.filepath;
+        const expire = msg.expire;
+        const command = new client_s3_1.PutObjectCommand({
+            Bucket: bucket,
+            Key: filepath,
+        });
+        const url = await (0, s3_request_presigner_1.getSignedUrl)(aws_s3, command, {
+            expiresIn: expire,
+        });
+        return {
+            url,
+            bucket,
+            filepath,
+            expire,
+        };
+    }
+    async function get_download_url(msg) {
+        const bucket = msg.bucket;
+        const filepath = msg.filepath;
+        const expire = msg.expire;
+        const command = new client_s3_1.GetObjectCommand({
+            Bucket: bucket,
+            Key: filepath,
+        });
+        const url = await (0, s3_request_presigner_1.getSignedUrl)(aws_s3, command, {
+            expiresIn: expire,
+        });
+        return {
+            url,
+            bucket,
+            filepath,
+            expire,
+        };
+    }
     return {
         name: store.name,
         tag: meta.tag,

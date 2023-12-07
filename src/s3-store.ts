@@ -12,6 +12,8 @@ import {
   DeleteObjectCommand,
 } from '@aws-sdk/client-s3'
 
+import { getSignedUrl, S3RequestPresigner } from '@aws-sdk/s3-request-presigner'
+
 // TODO: ent fields as dot paths
 
 s3_store.defaults = {
@@ -308,6 +310,67 @@ async function s3_store(this: any, options: any) {
   }
 
   let meta = init(seneca, options, store)
+
+  seneca.message(
+    'cloud:aws,service:store,get:url,kind:upload',
+    {
+      bucket: String,
+      filepath: String,
+      expire: Number,
+    },
+    get_upload_url,
+  )
+
+  seneca.message(
+    'cloud:aws,service:store,get:url,kind:download',
+    {
+      bucket: String,
+      filepath: String,
+      expire: Number,
+    },
+    get_download_url,
+  )
+
+  async function get_upload_url(msg: any) {
+    const bucket = msg.bucket
+    const filepath = msg.filepath
+    const expire = msg.expire
+
+    const command = new PutObjectCommand({
+      Bucket: bucket,
+      Key: filepath,
+    })
+    const url: string = await getSignedUrl(aws_s3, command, {
+      expiresIn: expire,
+    })
+
+    return {
+      url,
+      bucket,
+      filepath,
+      expire,
+    }
+  }
+
+  async function get_download_url(msg: any) {
+    const bucket = msg.bucket
+    const filepath = msg.filepath
+    const expire = msg.expire
+
+    const command = new GetObjectCommand({
+      Bucket: bucket,
+      Key: filepath,
+    })
+    const url: string = await getSignedUrl(aws_s3, command, {
+      expiresIn: expire,
+    })
+    return {
+      url,
+      bucket,
+      filepath,
+      expire,
+    }
+  }
 
   return {
     name: store.name,
