@@ -17,6 +17,8 @@ import { getSignedUrl, S3RequestPresigner } from '@aws-sdk/s3-request-presigner'
 // TODO: ent fields as dot paths
 
 s3_store.defaults = {
+  debug: false,
+
   prefix: Empty('seneca/db01/'),
   suffix: Empty('.json'),
   folder: Any(),
@@ -46,6 +48,8 @@ s3_store.defaults = {
     }),
   ),
 }
+
+const PLUGIN = '@seneca/s3-store'
 
 async function s3_store(this: any, options: any) {
   const seneca = this
@@ -88,14 +92,14 @@ async function s3_store(this: any, options: any) {
       let d = msg.ent.data$()
       d.id = id
 
-      let s3id = make_s3id(id, msg.ent, options)
-      let Body: Buffer | undefined = undefined
       let entSpec = options.ent[canon]
+      let jsonl = entSpec?.jsonl || msg.jsonl$ || msg.q.jsonl$
+      let bin = entSpec?.bin || msg.bin$ || msg.q.bin$
 
-      if (entSpec || msg.jsonl$ || msg.bin$) {
-        let jsonl = entSpec?.jsonl || msg.jsonl$
-        let bin = entSpec?.bin || msg.bin$
+      let s3id = make_s3id(id, msg.ent, options, bin)
+      let Body: Buffer | undefined = undefined
 
+      if (entSpec || jsonl || bin) {
         // JSONL files
         if ('string' === typeof jsonl && '' !== jsonl) {
           let arr = msg.ent[jsonl]
@@ -137,6 +141,10 @@ async function s3_store(this: any, options: any) {
         let full: string = Path.join(local_folder, s3id || id)
         let path: string = Path.dirname(full)
 
+        if (options.debug) {
+          console.log(PLUGIN, 'save', path, Body.length)
+        }
+
         Fsp.mkdir(path, { recursive: true })
           .then(() => {
             Fsp.writeFile(full, Body as any)
@@ -175,12 +183,12 @@ async function s3_store(this: any, options: any) {
       let canon = msg.ent.entity$
       let qent = msg.qent
       let id = '' + msg.q.id
-      let s3id = make_s3id(id, msg.ent, options)
       let entSpec = options.ent[canon]
       let output: 'ent' | 'jsonl' | 'bin' = 'ent'
-
       let jsonl = entSpec?.jsonl || msg.jsonl$ || msg.q.jsonl$
       let bin = entSpec?.bin || msg.bin$ || msg.q.bin$
+
+      let s3id = make_s3id(id, msg.ent, options, bin)
 
       output = jsonl && '' != jsonl ? 'jsonl' : bin && '' != bin ? 'bin' : 'ent'
 
@@ -213,6 +221,10 @@ async function s3_store(this: any, options: any) {
       if (options.local.active) {
         let full: string = Path.join(local_folder, s3id || id)
         // console.log('FULL', full)
+
+        if (options.debug) {
+          console.log(PLUGIN, 'load', full)
+        }
 
         Fsp.readFile(full)
           .then((body: any) => {
@@ -260,10 +272,12 @@ async function s3_store(this: any, options: any) {
     },
 
     remove: function (msg: any, reply: any) {
-      // let qent = msg.qent
+      let canon = (msg.ent || msg.qent).entity$
       let id = '' + msg.q.id
+      let entSpec = options.ent[canon]
+      let bin = entSpec?.bin || msg.bin$ || msg.q.bin$
 
-      let s3id = make_s3id(id, msg.ent, options)
+      let s3id = make_s3id(id, msg.ent, options, bin)
 
       // Local file
       if (options.local.active) {
@@ -381,7 +395,7 @@ async function s3_store(this: any, options: any) {
   }
 }
 
-function make_s3id(id: string, ent: any, options: any) {
+function make_s3id(id: string, ent: any, options: any, bin: boolean) {
   let s3id =
     null == id
       ? null
@@ -390,7 +404,7 @@ function make_s3id(id: string, ent: any, options: any) {
           : options.folder) +
         ('' == options.folder ? '' : '/') +
         id +
-        options.suffix
+        (bin ? '' : options.suffix)
 
   // console.log('make_s3id', s3id, id, ent, options)
   return s3id

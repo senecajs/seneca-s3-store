@@ -11,6 +11,7 @@ const client_s3_1 = require("@aws-sdk/client-s3");
 const s3_request_presigner_1 = require("@aws-sdk/s3-request-presigner");
 // TODO: ent fields as dot paths
 s3_store.defaults = {
+    debug: false,
     prefix: (0, gubu_1.Empty)('seneca/db01/'),
     suffix: (0, gubu_1.Empty)('.json'),
     folder: (0, gubu_1.Any)(),
@@ -32,6 +33,7 @@ s3_store.defaults = {
         bin: (0, gubu_1.Skip)(String),
     })),
 };
+const PLUGIN = '@seneca/s3-store';
 async function s3_store(options) {
     const seneca = this;
     const init = seneca.export('entity/init');
@@ -67,12 +69,12 @@ async function s3_store(options) {
             let id = '' + (msg.ent.id || msg.ent.id$ || generate_id(msg.ent));
             let d = msg.ent.data$();
             d.id = id;
-            let s3id = make_s3id(id, msg.ent, options);
-            let Body = undefined;
             let entSpec = options.ent[canon];
-            if (entSpec || msg.jsonl$ || msg.bin$) {
-                let jsonl = (entSpec === null || entSpec === void 0 ? void 0 : entSpec.jsonl) || msg.jsonl$;
-                let bin = (entSpec === null || entSpec === void 0 ? void 0 : entSpec.bin) || msg.bin$;
+            let jsonl = (entSpec === null || entSpec === void 0 ? void 0 : entSpec.jsonl) || msg.jsonl$ || msg.q.jsonl$;
+            let bin = (entSpec === null || entSpec === void 0 ? void 0 : entSpec.bin) || msg.bin$ || msg.q.bin$;
+            let s3id = make_s3id(id, msg.ent, options, bin);
+            let Body = undefined;
+            if (entSpec || jsonl || bin) {
                 // JSONL files
                 if ('string' === typeof jsonl && '' !== jsonl) {
                     let arr = msg.ent[jsonl];
@@ -102,6 +104,9 @@ async function s3_store(options) {
             if (options.local.active) {
                 let full = path_1.default.join(local_folder, s3id || id);
                 let path = path_1.default.dirname(full);
+                if (options.debug) {
+                    console.log(PLUGIN, 'save', path, Body.length);
+                }
                 promises_1.default.mkdir(path, { recursive: true })
                     .then(() => {
                     promises_1.default.writeFile(full, Body)
@@ -137,11 +142,11 @@ async function s3_store(options) {
             let canon = msg.ent.entity$;
             let qent = msg.qent;
             let id = '' + msg.q.id;
-            let s3id = make_s3id(id, msg.ent, options);
             let entSpec = options.ent[canon];
             let output = 'ent';
             let jsonl = (entSpec === null || entSpec === void 0 ? void 0 : entSpec.jsonl) || msg.jsonl$ || msg.q.jsonl$;
             let bin = (entSpec === null || entSpec === void 0 ? void 0 : entSpec.bin) || msg.bin$ || msg.q.bin$;
+            let s3id = make_s3id(id, msg.ent, options, bin);
             output = jsonl && '' != jsonl ? 'jsonl' : bin && '' != bin ? 'bin' : 'ent';
             function replyEnt(body) {
                 let entdata = {};
@@ -169,6 +174,9 @@ async function s3_store(options) {
             if (options.local.active) {
                 let full = path_1.default.join(local_folder, s3id || id);
                 // console.log('FULL', full)
+                if (options.debug) {
+                    console.log(PLUGIN, 'load', full);
+                }
                 promises_1.default.readFile(full)
                     .then((body) => {
                     replyEnt(body);
@@ -209,9 +217,11 @@ async function s3_store(options) {
             reply([]);
         },
         remove: function (msg, reply) {
-            // let qent = msg.qent
+            let canon = (msg.ent || msg.qent).entity$;
             let id = '' + msg.q.id;
-            let s3id = make_s3id(id, msg.ent, options);
+            let entSpec = options.ent[canon];
+            let bin = (entSpec === null || entSpec === void 0 ? void 0 : entSpec.bin) || msg.bin$ || msg.q.bin$;
+            let s3id = make_s3id(id, msg.ent, options, bin);
             // Local file
             if (options.local.active) {
                 let full = path_1.default.join(local_folder, s3id || id);
@@ -306,7 +316,7 @@ async function s3_store(options) {
         },
     };
 }
-function make_s3id(id, ent, options) {
+function make_s3id(id, ent, options, bin) {
     let s3id = null == id
         ? null
         : (null == options.folder
@@ -314,7 +324,7 @@ function make_s3id(id, ent, options) {
             : options.folder) +
             ('' == options.folder ? '' : '/') +
             id +
-            options.suffix;
+            (bin ? '' : options.suffix);
     // console.log('make_s3id', s3id, id, ent, options)
     return s3id;
 }
