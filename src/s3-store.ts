@@ -3,6 +3,8 @@
 import Path from 'path'
 import Fsp from 'fs/promises'
 
+import chokidar from 'chokidar'
+
 import { Default, Skip, Any, Exact, Child, Empty } from 'gubu'
 
 import {
@@ -63,6 +65,38 @@ async function s3_store(this: any, options: any) {
   }
 
   let local_folder: string = ''
+
+  const path = Path.resolve('./data/storage/')
+  console.log('s3-store: path', path)
+
+  const watcher = chokidar.watch(path, {
+    ignoreInitial: true,
+    ignored: /(^|[\/\\])\../,
+    persistent: true
+  })
+
+  watcher
+    .on('add', (path: string) => {
+      const keyPath = path.split(Path.sep).slice(path.split(Path.sep).indexOf('folder01')).join(Path.sep);
+      console.log(`s3-store: keyPath ${keyPath}`);
+      const event = {
+        'Records': [
+          {
+            s3: {
+              object: {
+                key: keyPath,
+              },
+            },
+          },
+        ]
+      };
+      seneca.post('aim:upload,handle:file', { event });
+    })
+    .on('error', error => console.log(`s3-store: Watcher error: ${error}`))
+    .on('ready', () =>
+      console.log('s3-store: Initial scan complete. Ready for changes')
+    )
+    
 
   seneca.init(function (reply: () => void) {
     if (options.local.active) {

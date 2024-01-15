@@ -6,6 +6,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
 const promises_1 = __importDefault(require("fs/promises"));
+const chokidar_1 = __importDefault(require("chokidar"));
 const gubu_1 = require("gubu");
 const client_s3_1 = require("@aws-sdk/client-s3");
 const s3_request_presigner_1 = require("@aws-sdk/s3-request-presigner");
@@ -44,6 +45,32 @@ async function s3_store(options) {
         ...options.shared,
     };
     let local_folder = '';
+    const path = path_1.default.resolve('./data/storage/');
+    console.log('s3-store: path', path);
+    const watcher = chokidar_1.default.watch(path, {
+        ignoreInitial: true,
+        ignored: /(^|[\/\\])\../,
+        persistent: true
+    });
+    watcher
+        .on('add', (path) => {
+        const keyPath = path.split(path_1.default.sep).slice(path.split(path_1.default.sep).indexOf('folder01')).join(path_1.default.sep);
+        console.log(`s3-store: keyPath ${keyPath}`);
+        const event = {
+            'Records': [
+                {
+                    s3: {
+                        object: {
+                            key: keyPath,
+                        },
+                    },
+                },
+            ]
+        };
+        seneca.post('aim:upload,handle:file', { event });
+    })
+        .on('error', error => console.log(`s3-store: Watcher error: ${error}`))
+        .on('ready', () => console.log('s3-store: Initial scan complete. Ready for changes'));
     seneca.init(function (reply) {
         if (options.local.active) {
             let folder = options.local.folder;
