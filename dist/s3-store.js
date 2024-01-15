@@ -55,8 +55,7 @@ async function s3_store(options) {
                     : folder;
             // Watch for local file changes and trigger upload logic.
             const watcher = chokidar_1.default.watch(path_1.default.resolve(options.local.watchPath), {
-                ignoreInitial: true,
-                persistent: true
+                ignoreInitial: true
             });
             watcher
                 .on('add', (path) => {
