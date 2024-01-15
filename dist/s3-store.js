@@ -46,34 +46,6 @@ async function s3_store(options) {
         ...options.shared,
     };
     let local_folder = '';
-    // if (options.local.active) {
-    //   const path = Path.resolve(options.local.watchPath)
-    //   console.log('s3-store: path', path)
-    //   const watcher = chokidar.watch(path, {
-    //     ignoreInitial: true,
-    //     ignored: /(^|[\/\\])\../,
-    //     persistent: true
-    //   })
-    //   watcher
-    //     .on('add', (path: string) => {
-    //       const keyPath = path.split(Path.sep).slice(path.split(Path.sep).indexOf('folder01')).join(Path.sep);
-    //       console.log(`s3-store: keyPath ${keyPath}`);
-    //       const event = {
-    //         'Records': [
-    //           {
-    //             s3: {
-    //               object: {
-    //                 key: keyPath,
-    //               },
-    //             },
-    //           },
-    //         ]
-    //       };
-    //       seneca.post('aim:upload,handle:file', { event });
-    //     })
-    //     .on('error', error => console.log(`s3-store: Watcher error: ${error}`))
-    //     .on('ready', () => console.log('s3-store: Initial scan complete. Ready for changes'));
-    // }
     seneca.init(function (reply) {
         if (options.local.active) {
             let folder = options.local.folder;
