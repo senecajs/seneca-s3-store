@@ -25,7 +25,6 @@ s3_store.defaults = {
         active: false,
         folder: '',
         suffixMode: 'none', // TODO: FIX: Default('none', Exact('none', 'genid')),
-        watchPath: '',
         onObjectCreated: '',
     },
     // keys are canon strings
@@ -55,7 +54,7 @@ async function s3_store(options) {
                     ? folder + '-' + seneca.util.Nid()
                     : folder;
             // Watch for local file changes and trigger upload logic.
-            const watcher = chokidar_1.default.watch(path_1.default.resolve(options.local.watchPath), {
+            const watcher = chokidar_1.default.watch(path_1.default.resolve(options.local.folder), {
                 ignoreInitial: true,
             });
             watcher.on('add', (path) => {

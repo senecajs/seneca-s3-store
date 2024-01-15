@@ -36,7 +36,6 @@ s3_store.defaults = {
     active: false,
     folder: '',
     suffixMode: 'none', // TODO: FIX: Default('none', Exact('none', 'genid')),
-    watchPath: '',
     onObjectCreated: '',
   },
 
@@ -77,7 +76,7 @@ async function s3_store(this: any, options: any) {
           : folder
 
       // Watch for local file changes and trigger upload logic.
-      const watcher = chokidar.watch(Path.resolve(options.local.watchPath), {
+      const watcher = chokidar.watch(Path.resolve(options.local.folder), {
         ignoreInitial: true,
       })
 
