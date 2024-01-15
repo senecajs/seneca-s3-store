@@ -37,6 +37,7 @@ s3_store.defaults = {
     folder: '',
     suffixMode: 'none', // TODO: FIX: Default('none', Exact('none', 'genid')),
     watchPath: '',
+    onObjectCreated: '',
   },
 
   // keys are canon strings
@@ -95,7 +96,7 @@ async function s3_store(this: any, options: any) {
               },
             ]
           };
-          seneca.post('aim:upload,handle:file', { event });
+          seneca.post(options.local.onObjectCreated, { event });
         })
         // .on('error', error => console.log(`WATCH error: ${error}`))
         // .on('ready', () => console.log('WATCH initial scan complete. ready for changes'));

@@ -26,6 +26,7 @@ s3_store.defaults = {
         folder: '',
         suffixMode: 'none', // TODO: FIX: Default('none', Exact('none', 'genid')),
         watchPath: '',
+        onObjectCreated: '',
     },
     // keys are canon strings
     ent: (0, gubu_1.Default)({}, (0, gubu_1.Child)({
@@ -72,7 +73,7 @@ async function s3_store(options) {
                         },
                     ]
                 };
-                seneca.post('aim:upload,handle:file', { event });
+                seneca.post(options.local.onObjectCreated, { event });
             });
             // .on('error', error => console.log(`WATCH error: ${error}`))
             // .on('ready', () => console.log('WATCH initial scan complete. ready for changes'));
