@@ -35,7 +35,8 @@ s3_store.defaults = {
   local: {
     active: false,
     folder: '',
-    suffixMode: 'none', // TODO: FIX: Default('none', Exact('none', 'genid'))
+    suffixMode: 'none', // TODO: FIX: Default('none', Exact('none', 'genid')),
+    watchPath: '',
   },
 
   // keys are canon strings
@@ -66,36 +67,36 @@ async function s3_store(this: any, options: any) {
 
   let local_folder: string = ''
 
-  const path = Path.resolve('./data/storage/')
-  console.log('s3-store: path', path)
+  // if (options.local.active) {
+  //   const path = Path.resolve(options.local.watchPath)
+  //   console.log('s3-store: path', path)
 
-  const watcher = chokidar.watch(path, {
-    ignoreInitial: true,
-    ignored: /(^|[\/\\])\../,
-    persistent: true
-  })
+  //   const watcher = chokidar.watch(path, {
+  //     ignoreInitial: true,
+  //     ignored: /(^|[\/\\])\../,
+  //     persistent: true
+  //   })
 
-  watcher
-    .on('add', (path: string) => {
-      const keyPath = path.split(Path.sep).slice(path.split(Path.sep).indexOf('folder01')).join(Path.sep);
-      console.log(`s3-store: keyPath ${keyPath}`);
-      const event = {
-        'Records': [
-          {
-            s3: {
-              object: {
-                key: keyPath,
-              },
-            },
-          },
-        ]
-      };
-      seneca.post('aim:upload,handle:file', { event });
-    })
-    .on('error', error => console.log(`s3-store: Watcher error: ${error}`))
-    .on('ready', () =>
-      console.log('s3-store: Initial scan complete. Ready for changes')
-    )
+  //   watcher
+  //     .on('add', (path: string) => {
+  //       const keyPath = path.split(Path.sep).slice(path.split(Path.sep).indexOf('folder01')).join(Path.sep);
+  //       console.log(`s3-store: keyPath ${keyPath}`);
+  //       const event = {
+  //         'Records': [
+  //           {
+  //             s3: {
+  //               object: {
+  //                 key: keyPath,
+  //               },
+  //             },
+  //           },
+  //         ]
+  //       };
+  //       seneca.post('aim:upload,handle:file', { event });
+  //     })
+  //     .on('error', error => console.log(`s3-store: Watcher error: ${error}`))
+  //     .on('ready', () => console.log('s3-store: Initial scan complete. Ready for changes'));
+  // }
     
 
   seneca.init(function (reply: () => void) {
@@ -105,6 +106,31 @@ async function s3_store(this: any, options: any) {
         'genid' == options.local.suffixMode
           ? folder + '-' + seneca.util.Nid()
           : folder
+  
+      const watcher = chokidar.watch(Path.resolve(options.local.watchPath), {
+        ignoreInitial: true,
+        persistent: true
+      })
+  
+      watcher
+        .on('add', (path: string) => {
+          const keyPath = path.split(Path.sep).slice(path.split(Path.sep).indexOf('folder01')).join(Path.sep);
+          console.log(`WATCH path: ${keyPath}`);
+          const event = {
+            'Records': [
+              {
+                s3: {
+                  object: {
+                    key: keyPath,
+                  },
+                },
+              },
+            ]
+          };
+          seneca.post('aim:upload,handle:file', { event });
+        })
+        .on('error', error => console.log(`WATCH error: ${error}`))
+        .on('ready', () => console.log('WATCH initial scan complete. ready for changes'));
     } else {
       const s3_opts = {
         s3ForcePathStyle: true,
