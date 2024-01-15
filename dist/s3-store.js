@@ -56,14 +56,16 @@ async function s3_store(options) {
                     : folder;
             // Watch for local file changes and trigger upload logic.
             const watcher = chokidar_1.default.watch(path_1.default.resolve(options.local.watchPath), {
-                ignoreInitial: true
+                ignoreInitial: true,
             });
-            watcher
-                .on('add', (path) => {
-                const keyPath = path.split(path_1.default.sep).slice(path.split(path_1.default.sep).indexOf('folder01')).join(path_1.default.sep);
+            watcher.on('add', (path) => {
+                const keyPath = path
+                    .split(path_1.default.sep)
+                    .slice(path.split(path_1.default.sep).indexOf('folder01'))
+                    .join(path_1.default.sep);
                 // console.log(`WATCH path: ${keyPath}`);
                 const event = {
-                    'Records': [
+                    Records: [
                         {
                             s3: {
                                 object: {
@@ -71,9 +73,11 @@ async function s3_store(options) {
                                 },
                             },
                         },
-                    ]
+                    ],
                 };
-                seneca.post(options.local.onObjectCreated, { event });
+                if (options.local.onObjectCreated) {
+                    seneca.post(options.local.onObjectCreated, { event });
+                }
             });
             // .on('error', error => console.log(`WATCH error: ${error}`))
             // .on('ready', () => console.log('WATCH initial scan complete. ready for changes'));
