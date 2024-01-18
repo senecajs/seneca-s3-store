@@ -3,6 +3,8 @@
 import Path from 'path'
 import Fsp from 'fs/promises'
 
+import chokidar from 'chokidar'
+
 import { Default, Skip, Any, Exact, Child, Empty } from 'gubu'
 
 import {
@@ -33,7 +35,8 @@ s3_store.defaults = {
   local: {
     active: false,
     folder: '',
-    suffixMode: 'none', // TODO: FIX: Default('none', Exact('none', 'genid'))
+    suffixMode: 'none', // TODO: FIX: Default('none', Exact('none', 'genid')),
+    onObjectCreated: '',
   },
 
   // keys are canon strings
@@ -71,6 +74,35 @@ async function s3_store(this: any, options: any) {
         'genid' == options.local.suffixMode
           ? folder + '-' + seneca.util.Nid()
           : folder
+
+      // Watch for local file changes and trigger upload logic.
+      const watcher = chokidar.watch(Path.resolve(options.local.folder), {
+        ignoreInitial: true,
+      })
+
+      watcher.on('add', (path: string) => {
+        const keyPath = path
+          .split(Path.sep)
+          .slice(path.split(Path.sep).indexOf('folder01'))
+          .join(Path.sep)
+        // console.log(`WATCH path: ${keyPath}`);
+        const event = {
+          Records: [
+            {
+              s3: {
+                object: {
+                  key: keyPath,
+                },
+              },
+            },
+          ],
+        }
+        if (options.local.onObjectCreated) {
+          seneca.post(options.local.onObjectCreated, { event })
+        }
+      })
+      // .on('error', error => console.log(`WATCH error: ${error}`))
+      // .on('ready', () => console.log('WATCH initial scan complete. ready for changes'));
     } else {
       const s3_opts = {
         s3ForcePathStyle: true,

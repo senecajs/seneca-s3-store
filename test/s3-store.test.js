@@ -62,6 +62,7 @@ const local_opts = {
       active: true,
       folder: __dirname + '/s3files/data',
       suffixMode: 'genid',
+      onObjectCreated: 'aim:local-s3,cmd:object-created',
     },
   },
 }

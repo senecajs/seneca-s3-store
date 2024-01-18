@@ -110,4 +110,5 @@ test/s3data
 test/s3files
 
 
-
+# VSCode
+.vscode/

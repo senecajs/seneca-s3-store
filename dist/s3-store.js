@@ -6,6 +6,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
 const promises_1 = __importDefault(require("fs/promises"));
+const chokidar_1 = __importDefault(require("chokidar"));
 const gubu_1 = require("gubu");
 const client_s3_1 = require("@aws-sdk/client-s3");
 const s3_request_presigner_1 = require("@aws-sdk/s3-request-presigner");
@@ -23,7 +24,8 @@ s3_store.defaults = {
     local: {
         active: false,
         folder: '',
-        suffixMode: 'none', // TODO: FIX: Default('none', Exact('none', 'genid'))
+        suffixMode: 'none', // TODO: FIX: Default('none', Exact('none', 'genid')),
+        onObjectCreated: '',
     },
     // keys are canon strings
     ent: (0, gubu_1.Default)({}, (0, gubu_1.Child)({
@@ -51,6 +53,33 @@ async function s3_store(options) {
                 'genid' == options.local.suffixMode
                     ? folder + '-' + seneca.util.Nid()
                     : folder;
+            // Watch for local file changes and trigger upload logic.
+            const watcher = chokidar_1.default.watch(path_1.default.resolve(options.local.folder), {
+                ignoreInitial: true,
+            });
+            watcher.on('add', (path) => {
+                const keyPath = path
+                    .split(path_1.default.sep)
+                    .slice(path.split(path_1.default.sep).indexOf('folder01'))
+                    .join(path_1.default.sep);
+                // console.log(`WATCH path: ${keyPath}`);
+                const event = {
+                    Records: [
+                        {
+                            s3: {
+                                object: {
+                                    key: keyPath,
+                                },
+                            },
+                        },
+                    ],
+                };
+                if (options.local.onObjectCreated) {
+                    seneca.post(options.local.onObjectCreated, { event });
+                }
+            });
+            // .on('error', error => console.log(`WATCH error: ${error}`))
+            // .on('ready', () => console.log('WATCH initial scan complete. ready for changes'));
         }
         else {
             const s3_opts = {
