@@ -6,6 +6,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
 const promises_1 = __importDefault(require("fs/promises"));
+const chokidar_1 = __importDefault(require("chokidar"));
 const gubu_1 = require("gubu");
 const client_s3_1 = require("@aws-sdk/client-s3");
 const s3_request_presigner_1 = require("@aws-sdk/s3-request-presigner");
@@ -23,7 +24,11 @@ s3_store.defaults = {
     local: {
         active: false,
         folder: '',
-        suffixMode: 'none', // TODO: FIX: Default('none', Exact('none', 'genid'))
+        watch: false,
+        // suffixMode: 'none', // TODO: FIX: Default('none', Exact('none', 'genid')),
+        suffixMode: (0, gubu_1.Default)('none', (0, gubu_1.Exact)('none', 'genid')),
+        // { [path-prefix]: msg }
+        onObjectCreated: (0, gubu_1.Skip)((0, gubu_1.Child)((0, gubu_1.One)(String, Object))),
     },
     // keys are canon strings
     ent: (0, gubu_1.Default)({}, (0, gubu_1.Child)({
@@ -51,6 +56,38 @@ async function s3_store(options) {
                 'genid' == options.local.suffixMode
                     ? folder + '-' + seneca.util.Nid()
                     : folder;
+            if (options.local.watch) {
+                const localFolder = path_1.default.resolve(options.local.folder);
+                // Watch for local file changes and trigger upload logic.
+                const watcher = chokidar_1.default.watch(localFolder, {
+                    ignoreInitial: true,
+                });
+                const onObjectCreated = options.local.onObjectCreated;
+                if (onObjectCreated) {
+                    watcher.on('add', (path) => {
+                        const keyPath = path.substring(localFolder.length + 1);
+                        // console.log(`WATCH path: ${keyPath}`);
+                        for (let prefix in onObjectCreated) {
+                            if (keyPath.startsWith(prefix)) {
+                                const event = {
+                                    Records: [
+                                        {
+                                            s3: {
+                                                object: {
+                                                    key: keyPath,
+                                                },
+                                            },
+                                        },
+                                    ],
+                                };
+                                seneca.act(onObjectCreated[prefix], { event });
+                            }
+                        }
+                    });
+                    // .on('error', error => console.log(`WATCH error: ${error}`))
+                    // .on('ready', () => console.log('WATCH initial scan complete. ready for changes'));
+                }
+            }
         }
         else {
             const s3_opts = {
@@ -308,11 +345,27 @@ async function s3_store(options) {
             expire,
         };
     }
+    const makeGatewayHandler = (msg) => {
+        const gatewayHandler = {
+            name: 's3',
+            match: (trigger) => {
+                let matched = 'aws:s3' === trigger.record.eventSource;
+                console.log('S3 MATCHED', matched, trigger);
+                return matched;
+            },
+            process: async function (trigger, gateway) {
+                let { record, event } = trigger;
+                return gateway({ ...msg, record, event }, trigger);
+            }
+        };
+        return gatewayHandler;
+    };
     return {
         name: store.name,
         tag: meta.tag,
-        exportmap: {
+        exports: {
             native: aws_s3,
+            makeGatewayHandler,
         },
     };
 }
