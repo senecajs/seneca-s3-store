@@ -13,8 +13,8 @@ A local mode can simulate S3 behaviour for local development and testing.
 [![build](https://github.com/senecajs/seneca-s3-store/actions/workflows/build.yml/badge.svg)](https://github.com/senecajs/seneca-s3-store/actions/workflows/build.yml)
 [![Coverage Status](https://coveralls.io/repos/github/senecajs/seneca-s3-store/badge.svg?branch=main)](https://coveralls.io/github/senecajs/seneca-s3-store?branch=main)
 [![Known Vulnerabilities](https://snyk.io/test/github/senecajs/seneca-s3-store/badge.svg)](https://snyk.io/test/github/senecajs/seneca-s3-store)
-[![DeepScan grade](https://deepscan.io/api/teams/5016/projects/19453/branches/505563/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5016&pid=19453&bid=505563)
-[![Maintainability](https://api.codeclimate.com/v1/badges/9d54b38a991fe7b92a43/maintainability)](https://codeclimate.com/github/senecajs/seneca-s3-store/maintainability)
+[![DeepScan grade](https://deepscan.io/api/teams/5016/projects/26330/branches/835756/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5016&pid=26330&bid=835756)
+[![Maintainability](https://api.codeclimate.com/v1/badges/7e01589345a62da4f444/maintainability)](https://codeclimate.com/github/senecajs/seneca-s3-store/maintainability)
 
 # @seneca/s3-store
 
