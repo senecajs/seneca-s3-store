@@ -62,7 +62,7 @@ const local_opts = {
       active: true,
       folder: __dirname + '/s3files/data',
       suffixMode: 'genid',
-      onObjectCreated: {'':'aim:local-s3,cmd:object-created'},
+      onObjectCreated: { '': 'aim:local-s3,cmd:object-created' },
     },
   },
 }
@@ -329,8 +329,7 @@ async function makeOptions() {
     locals3.config.s3.region = 'eu-west-1'
     console.log('locals3.config', locals3.config)
     return locals3.config
-  }
-  else {
+  } else {
     return require('./aws-s3-opts')
   }
 }

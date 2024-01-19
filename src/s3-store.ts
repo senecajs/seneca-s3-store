@@ -71,7 +71,7 @@ async function s3_store(this: any, options: any) {
 
   let local_folder: string = ''
 
-  seneca.init(function(reply: () => void) {
+  seneca.init(function (reply: () => void) {
     if (options.local.active) {
       let folder: string = options.local.folder
       local_folder =
@@ -116,8 +116,7 @@ async function s3_store(this: any, options: any) {
           // .on('ready', () => console.log('WATCH initial scan complete. ready for changes'));
         }
       }
-    }
-    else {
+    } else {
       const s3_opts = {
         s3ForcePathStyle: true,
         ...options.s3,
@@ -130,7 +129,7 @@ async function s3_store(this: any, options: any) {
 
   let store = {
     name: 's3-store',
-    save: function(msg: any, reply: any) {
+    save: function (msg: any, reply: any) {
       // console.log('MSG', msg)
 
       let canon = msg.ent.entity$
@@ -225,7 +224,7 @@ async function s3_store(this: any, options: any) {
       }
     },
 
-    load: function(msg: any, reply: any) {
+    load: function (msg: any, reply: any) {
       let canon = msg.ent.entity$
       let qent = msg.qent
       let id = '' + msg.q.id
@@ -313,11 +312,11 @@ async function s3_store(this: any, options: any) {
     },
 
     // NOTE: S3 folder listing not supported yet.
-    list: function(_msg: any, reply: any) {
+    list: function (_msg: any, reply: any) {
       reply([])
     },
 
-    remove: function(msg: any, reply: any) {
+    remove: function (msg: any, reply: any) {
       let canon = (msg.ent || msg.qent).entity$
       let id = '' + msg.q.id
       let entSpec = options.ent[canon]
@@ -360,11 +359,11 @@ async function s3_store(this: any, options: any) {
       }
     },
 
-    close: function(_msg: any, reply: () => void) {
+    close: function (_msg: any, reply: () => void) {
       reply()
     },
 
-    native: function(_msg: any, reply: any) {
+    native: function (_msg: any, reply: any) {
       reply({ client: aws_s3, local: { ...options.local } })
     },
   }
@@ -432,7 +431,6 @@ async function s3_store(this: any, options: any) {
     }
   }
 
-
   const makeGatewayHandler = (msg: object) => {
     const gatewayHandler = {
       name: 's3',
@@ -441,11 +439,14 @@ async function s3_store(this: any, options: any) {
         console.log('S3 MATCHED', matched, trigger)
         return matched
       },
-      process: async function(
-        this: typeof seneca, trigger: { record: any, event: any }, gateway: Function) {
+      process: async function (
+        this: typeof seneca,
+        trigger: { record: any; event: any },
+        gateway: Function,
+      ) {
         let { record, event } = trigger
         return gateway({ ...msg, record, event }, trigger)
-      }
+      },
     }
     return gatewayHandler
   }
@@ -465,11 +466,11 @@ function make_s3id(id: string, ent: any, options: any, bin: boolean) {
     null == id
       ? null
       : (null == options.folder
-        ? options.prefix + ent.entity$
-        : options.folder) +
-      ('' == options.folder ? '' : '/') +
-      id +
-      (bin ? '' : options.suffix)
+          ? options.prefix + ent.entity$
+          : options.folder) +
+        ('' == options.folder ? '' : '/') +
+        id +
+        (bin ? '' : options.suffix)
 
   // console.log('make_s3id', s3id, id, ent, options)
   return s3id

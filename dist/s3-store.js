@@ -356,7 +356,7 @@ async function s3_store(options) {
             process: async function (trigger, gateway) {
                 let { record, event } = trigger;
                 return gateway({ ...msg, record, event }, trigger);
-            }
+            },
         };
         return gatewayHandler;
     };
