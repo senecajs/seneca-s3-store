@@ -323,10 +323,13 @@ lab.test('bin-local-customid', async function () {
 })
 
 async function makeOptions() {
+  console.log('LOCAL', LOCAL)
   if (LOCAL) {
     let locals3 = await LocalS3()
+    console.log('locals3.config', locals3.config)
     return locals3.config
-  } else {
+  }
+  else {
     return require('./aws-s3-opts')
   }
 }
