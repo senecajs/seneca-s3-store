@@ -1,7 +1,7 @@
 {
   "name": "@seneca/s3-store",
   "version": "1.1.0",
-  "description": "Entity store using AWS S3. Note: *not* for arbitrary binaries, just for Seneca data entities.",
+  "description": "Entity store using AWS S3.",
   "main": "dist/s3-store.js",
   "type": "commonjs",
   "types": "dist/s3-store.d.ts",

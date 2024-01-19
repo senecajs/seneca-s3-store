@@ -326,6 +326,7 @@ async function makeOptions() {
   console.log('LOCAL', LOCAL)
   if (LOCAL) {
     let locals3 = await LocalS3()
+    locals3.config.s3.region = 'eu-west-1'
     console.log('locals3.config', locals3.config)
     return locals3.config
   }
