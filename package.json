@@ -12,11 +12,12 @@
     "coveralls": "lab -s -P test -r lcov | coveralls",
     "prettier": "prettier --write --no-semi --single-quote src/*.ts test/*.js",
     "build": "tsc -d",
+    "doc": "seneca-doc -p seneca-entity",
     "clean": "rm -rf node_modules yarn.lock package-lock.json",
-    "reset": "npm run clean && npm i && npm run build && npm test",
+    "reset": "npm run clean && npm i && npm run build && npm run doc && npm test",
     "repo-tag": "REPO_VERSION=`node -e \"console.log(require('./package').version)\"` && echo TAG: v$REPO_VERSION && git commit -a -m v$REPO_VERSION && git push && git tag v$REPO_VERSION && git push --tags;",
     "repo-publish": "npm run clean && npm i && npm run build && npm run repo-publish-quick",
-    "repo-publish-quick": "npm run prettier && npm run build && npm run test && npm run repo-tag && npm publish --registry https://registry.npmjs.org --access public"
+    "repo-publish-quick": "npm run prettier && npm run build && npm run doc && npm run test && npm run repo-tag && npm publish --registry https://registry.npmjs.org --access public"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "@aws-sdk/s3-request-presigner": "^3.468.0",
     "@hapi/code": "^9.0.3",
     "@hapi/lab": "^25.2.0",
+    "@seneca/doc": "^6.0.0",
     "@types/node": "^20.11.5",
     "coveralls": "^3.1.1",
     "lab-transform-typescript": "^3.0.1",
