@@ -1,6 +1,6 @@
 {
   "name": "@seneca/s3-store",
-  "version": "2.0.0",
+  "version": "2.2.0",
   "description": "Entity store using AWS S3.",
   "main": "dist/s3-store.js",
   "type": "commonjs",
@@ -41,7 +41,7 @@
     "@hapi/code": "^9.0.3",
     "@hapi/lab": "^25.2.0",
     "@seneca/doc": "^6.0.0",
-    "@types/node": "^20.11.5",
+    "@types/node": "16.18.71",
     "coveralls": "^3.1.1",
     "lab-transform-typescript": "^3.0.1",
     "prettier": "^3.2.4",

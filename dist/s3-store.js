@@ -345,7 +345,8 @@ async function s3_store(options) {
             expire,
         };
     }
-    const makeGatewayHandler = (msg) => {
+    const makeGatewayHandler = (msgin) => {
+        const msg = seneca.util.Jsonic(msgin);
         const gatewayHandler = {
             name: 's3',
             match: (trigger) => {
