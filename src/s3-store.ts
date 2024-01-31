@@ -160,11 +160,18 @@ async function s3_store(this: any, options: any) {
 
         // Binary files
         else if ('string' === typeof bin && '' !== bin) {
-          let data = msg.ent[bin]
-          if (null == data) {
+          let dataRef = msg.ent[bin]
+          if (null == dataRef) {
             throw new Error(
               's3-store: option ent.bin data field not found: ' + bin,
             )
+          }
+
+          let data = dataRef
+
+          // A function can be used to 'hide" very large data.
+          if ('function' === typeof dataRef) {
+            data = dataRef()
           }
 
           Body = Buffer.from(data)
