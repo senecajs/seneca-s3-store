@@ -1,33 +1,23 @@
-![Seneca S3 Store](http://senecajs.org/files/assets/seneca-logo.png)
-
-> _Seneca S3 Store_ is a plugin for [Seneca](http://senecajs.org)
-
-
-Entity store that uses AWS S3. This store can also handle JSONL documents and binary files.
-This plugin integrates with 
-[Seneca Gateway Lambda](https://github.com/senecajs/seneca-gateway-lambda) to support S3 events.
-A local mode can simulate S3 behaviour for local development and testing.
-
-
-[![npm version](https://img.shields.io/npm/v/@seneca/s3-store.svg)](https://npmjs.com/package/@seneca/s3-store)
-[![build](https://github.com/senecajs/seneca-s3-store/actions/workflows/build.yml/badge.svg)](https://github.com/senecajs/seneca-s3-store/actions/workflows/build.yml)
-[![Coverage Status](https://coveralls.io/repos/github/senecajs/seneca-s3-store/badge.svg?branch=main)](https://coveralls.io/github/senecajs/seneca-s3-store?branch=main)
-[![Known Vulnerabilities](https://snyk.io/test/github/senecajs/seneca-s3-store/badge.svg)](https://snyk.io/test/github/senecajs/seneca-s3-store)
-[![DeepScan grade](https://deepscan.io/api/teams/5016/projects/26330/branches/835756/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5016&pid=26330&bid=835756)
-[![Maintainability](https://api.codeclimate.com/v1/badges/7e01589345a62da4f444/maintainability)](https://codeclimate.com/github/senecajs/seneca-s3-store/maintainability)
+![Seneca](http://senecajs.org/files/assets/seneca-logo.png)
+> A [Seneca.js](http://senecajs.org) plugin
 
 # @seneca/s3-store
 
-| ![Voxgig](https://www.voxgig.com/res/img/vgt01r.png) | This open source module is sponsored and supported by [Voxgig](https://www.voxgig.com). |
-| ---------------------------------------------------- | --------------------------------------------------------------------------------------- |
+[![npm version](https://img.shields.io/npm/v/@seneca/s3-store.svg)](https://npmjs.com/package/@seneca/s3-store)
+[![build](https://github.com/senecajs/seneca-s3-store/actions/workflows/build.yml/badge.svg)](https://github.com/senecajs/seneca-s3-store/actions/workflows/build.yml)
+[![Known Vulnerabilities](https://snyk.io/test/github/senecajs/seneca-s3-store/badge.svg)](https://snyk.io/test/github/senecajs/seneca-s3-store)
+[![Coverage Status](https://coveralls.io/repos/github/senecajs/seneca-s3-store/badge.svg?branch=main)](https://coveralls.io/github/senecajs/seneca-s3-store?branch=main)
+[![DeepScan grade](https://deepscan.io/api/teams/5016/projects/26330/branches/835756/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5016&pid=26330&bid=835756)
+[![Maintainability](https://api.codeclimate.com/v1/badges/7e01589345a62da4f444/maintainability)](https://codeclimate.com/github/senecajs/seneca-s3-store/maintainability)
 
+| ![Voxgig](https://www.voxgig.com/res/img/vgt01r.png) | This open source module is sponsored and supported by [Voxgig](https://www.voxgig.com). |
+|---|---|
 
 ## Install
 
-```
+```sh
 $ npm install @seneca/s3-store
 ```
-
 
 ## Quick Example
 
@@ -61,18 +51,25 @@ seneca.entity('foo').save$({id$:'foo0', x:1})
 
 ```
 
-
 ## More Examples
 
 ## Motivation
 
-## Reference
+## Support
 
+If you're using this module and need help, you can:
+
+- Post a [github issue](https://github.com/senecajs/seneca-s3-store/issues)
+- Tweet to [@senecajs](http://twitter.com/senecajs)
+- Ask on the [Gitter](https://gitter.im/senecajs/seneca)
+
+## API
+
+### Reference
 
 <!--START:options-->
 
-
-## Options
+### Options
 
 * `debug` : boolean
 * `prefix` : string
@@ -85,33 +82,23 @@ seneca.entity('foo').save$({id$:'foo0', x:1})
 * `ent` : object
 * `init$` : boolean
 
-
 <!--END:options-->
 
 <!--START:action-list-->
 
-
-## Action Patterns
-
-
+### Action Patterns
 
 <!--END:action-list-->
 
 <!--START:action-desc-->
 
-
-## Action Descriptions
-
-
+### Action Descriptions
 
 <!--END:action-desc-->
 
-
-
-## Support
-
 ## Contributing
 
-## Background
+The [Senecajs org](https://github.com/senecajs/) encourages open participation. If you feel you can help in any way, be it with documentation, examples, extra testing, or new features please get in touch.
 
+## Background
 
