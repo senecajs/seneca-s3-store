@@ -5,17 +5,7 @@ const { LocalS3 } = require('./local-s3.js')
 run()
 
 async function run() {
-  const locals3 = await LocalS3()
-  /*
-        {
-          s3: {
-            credentials: { accessKeyId: 'S3RVER', secretAccessKey: 'S3RVER' },
-            endpoint: 'http://localhost:4568',
-            sslEnabled: false
-          },
-          shared: { Bucket: 'test-bucket' }
-        }
-  */
+  const locals3 = LocalS3()
 
   let opts = locals3.config
   opts.ent = {
@@ -67,5 +57,4 @@ async function run() {
   console.log('zed0r', zed0r)
 
   await s0.close()
-  await locals3.s3rver.close()
 }

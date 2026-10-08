@@ -1,42 +1,26 @@
 /* MIT License, Copyright (c) 2020-2023, Richard Rodger and other contributors. */
 'use strict'
 
-const Fs = require('fs')
-
-const S3rver = require('s3rver')
-
-async function LocalS3() {
-  const corsConfig = require.resolve('s3rver/example/cors.xml')
-  const websiteConfig = require.resolve('s3rver/example/website.xml')
-
-  const s3rver = new S3rver({
-    silent: true,
-    directory: __dirname + '/s3data/' + (Date.now() % 1e8),
-    configureBuckets: [
-      {
-        name: 'test-bucket.localhost',
-        configs: [Fs.readFileSync(corsConfig), Fs.readFileSync(websiteConfig)],
-      },
-    ],
-  })
-
-  const { port } = await s3rver.run()
-
-  console.log('PORT', port)
+// Connection settings for the S3 compatible test server started by
+// `npm run services:up` (see docker-compose.yml). Override with env vars.
+function LocalS3() {
+  const endpoint =
+    process.env.SENECA_TEST_S3_ENDPOINT || 'http://127.0.0.1:19100'
+  const bucket = process.env.SENECA_TEST_S3_BUCKET || 'test-bucket'
 
   return {
-    s3rver,
     config: {
       s3: {
+        region: process.env.SENECA_TEST_S3_REGION || 'eu-west-1',
         credentials: {
-          accessKeyId: 'S3RVER',
-          secretAccessKey: 'S3RVER',
+          accessKeyId: process.env.SENECA_TEST_S3_ACCESS_KEY || 'test',
+          secretAccessKey: process.env.SENECA_TEST_S3_SECRET_KEY || 'test',
         },
-        endpoint: `http://localhost:${port}`,
-        sslEnabled: false,
+        endpoint,
+        forcePathStyle: true,
       },
       shared: {
-        Bucket: 'test-bucket',
+        Bucket: bucket,
       },
     },
   }
