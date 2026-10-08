@@ -1,6 +1,6 @@
 {
   "name": "@seneca/s3-store",
-  "version": "2.6.0",
+  "version": "2.5.1",
   "description": "Entity store using AWS S3.",
   "main": "dist/s3-store.js",
   "type": "commonjs",
