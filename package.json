@@ -7,8 +7,8 @@
   "types": "dist/s3-store.d.ts",
   "scripts": {
     "watch": "tsc -w -d",
-    "test-some": "lab -v -P test -l -g",
-    "test": "lab -v -P test -t 0 -l",
+    "test-some": "lab -v -P test -I awslambda -g",
+    "test": "lab -v -P test -t 0 -I awslambda",
     "prettier": "prettier --write --no-semi --single-quote src/*.ts test/*.js docs/examples/*.js",
     "build": "tsc -d",
     "doc": "seneca-doc -p seneca-entity",
