@@ -3,10 +3,6 @@
 
 const LOCAL = 'true' !== process.env.SENECA_TEST_LIVE_S3_STORE
 
-const Fs = require('fs')
-
-const S3rver = require('s3rver')
-
 const Seneca = require('seneca')
 const Shared = require('seneca-store-test')
 
@@ -345,12 +341,8 @@ lab.test('bin-local-customid', async function () {
 })
 
 async function makeOptions() {
-  console.log('LOCAL', LOCAL)
   if (LOCAL) {
-    let locals3 = await LocalS3()
-    locals3.config.s3.region = 'eu-west-1'
-    console.log('locals3.config', locals3.config)
-    return locals3.config
+    return LocalS3().config
   } else {
     return require('./aws-s3-opts')
   }
