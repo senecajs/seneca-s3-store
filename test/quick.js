@@ -23,7 +23,7 @@ async function run() {
     // .test('print')
     .test()
     .use('promisify')
-    .use('entity', { mem_store: false })
+    .use('@seneca/entity', { mem_store: false })
     .use('..', opts)
 
   await s0.ready()

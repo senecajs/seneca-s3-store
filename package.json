@@ -1,6 +1,6 @@
 {
   "name": "@seneca/s3-store",
-  "version": "2.5.1",
+  "version": "3.0.0",
   "description": "Entity store using AWS S3.",
   "main": "dist/s3-store.js",
   "type": "commonjs",
@@ -11,7 +11,7 @@
     "test": "lab -v -P test -t 0 -I awslambda",
     "prettier": "prettier --write --no-semi --single-quote src/*.ts test/*.js docs/examples/*.js",
     "build": "tsc -d",
-    "doc": "seneca-doc -p seneca-entity",
+    "doc": "seneca-doc -p @seneca/entity",
     "clean": "rm -rf node_modules yarn.lock package-lock.json",
     "reset": "npm run clean && npm i && npm run build && npm run doc && npm test",
     "repo-tag": "REPO_VERSION=`node -e \"console.log(require('./package').version)\"` && echo TAG: v$REPO_VERSION && git commit -a -m v$REPO_VERSION && git push && git tag v$REPO_VERSION && git push --tags;",
@@ -42,10 +42,10 @@
     "@hapi/code": "^9.0.3",
     "@hapi/lab": "^26.0.1",
     "@seneca/doc": "^8.0.0",
+    "@seneca/entity": "^29.0.0",
     "@types/node": "^24.0.0",
     "prettier": "^3.3.1",
     "seneca": "^4.0.0-rc5",
-    "seneca-entity": "^28.1.0",
     "seneca-promisify": "^3.7.2",
     "seneca-store-test": "^6.0.0",
     "typescript": "^5.4.5"
@@ -53,12 +53,11 @@
   "peerDependencies": {
     "@aws-sdk/client-s3": ">=3",
     "@aws-sdk/s3-request-presigner": ">=3",
-    "seneca": ">=3||>=4.0.0-rc2",
-    "seneca-entity": ">=26",
+    "@seneca/entity": ">=29",
+    "seneca": ">=3.38||>=4.0.0-rc5",
     "seneca-promisify": ">=3"
   },
   "dependencies": {
-    "chokidar": "^3.6.0",
-    "gubu": "^9.0.0"
+    "chokidar": "^3.6.0"
   }
 }

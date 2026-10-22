@@ -6,7 +6,7 @@ const S3Store = require('../..') // in your project: require('@seneca/s3-store')
 async function main() {
   const seneca = Seneca({ legacy: false })
     .test()
-    .use('entity', { mem_store: false })
+    .use('@seneca/entity', { mem_store: false })
     .use(S3Store, {
       s3: {
         region: 'eu-west-1',

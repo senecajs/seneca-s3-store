@@ -12,7 +12,8 @@ Goal: run `npm test` against a local S3 compatible server.
 
 To test against the unreleased Seneca build, run
 `npm install --no-save <path>/seneca-4.0.0.tgz`, then `npm test`, then
-`npm install` to restore the devDependency.
+`npm install` to restore the devDependency. To test on Seneca 3, install
+`seneca@3.38.0` the same way.
 
 ## Environment variables
 

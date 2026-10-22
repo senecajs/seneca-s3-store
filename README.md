@@ -3,7 +3,7 @@
 
 # @seneca/s3-store
 
-An entity store for [Seneca](http://senecajs.org) that keeps each entity as an object in AWS S3 (or any S3 compatible server), or as a file in a local folder. Works with Seneca 4 (tested with the 4.0.0 prerelease) on Node 24 and 22.
+An entity store for [Seneca](http://senecajs.org) that keeps each entity as an object in AWS S3 (or any S3 compatible server), or as a file in a local folder. Works with Seneca 4 (tested with 4.0.0 and 4.0.0-rc5) and Seneca 3 from 3.38 (with seneca-promisify), on Node 24 and 22 (Seneca 4.0.0 requires Node 24 or later).
 
 [![npm version](https://img.shields.io/npm/v/@seneca/s3-store.svg)](https://npmjs.com/package/@seneca/s3-store)
 [![build](https://github.com/senecajs/seneca-s3-store/actions/workflows/build.yml/badge.svg)](https://github.com/senecajs/seneca-s3-store/actions/workflows/build.yml)
@@ -17,8 +17,11 @@ An entity store for [Seneca](http://senecajs.org) that keeps each entity as an o
 ## Install
 
 ```sh
-npm install @seneca/s3-store @aws-sdk/client-s3 @aws-sdk/s3-request-presigner seneca seneca-entity
+npm install @seneca/s3-store @aws-sdk/client-s3 @aws-sdk/s3-request-presigner seneca @seneca/entity
 ```
+
+On Seneca 3 (3.38 or later) also install `seneca-promisify` and load it
+before this plugin (`.use('promisify')`).
 
 ## Quick Example
 
@@ -26,7 +29,7 @@ npm install @seneca/s3-store @aws-sdk/client-s3 @aws-sdk/s3-request-presigner se
 const Seneca = require('seneca')
 
 const seneca = Seneca()
-  .use('entity', { mem_store: false })
+  .use('@seneca/entity', { mem_store: false })
   .use('@seneca/s3-store', {
     shared: { Bucket: 'my-aws-bucket-name' }, // added to every S3 command
     s3: { region: 'us-east-1' }, // S3Client settings
@@ -90,7 +93,7 @@ files in S3. Uses the AWS SDK v3.
 
 | Version | Seneca | Node |
 | ------- | ------ | ---- |
-| 2.5.1 | 4 (tested), 3 (peer range, not tested) | 24, 22 |
-| 2.5.0 | 3 | 18+ |
+| 3.0.0 | 4 (tested with 4.0.0 and 4.0.0-rc5), 3 from 3.38 (tested with 3.38.0) | 24, 22 (Seneca 4.0.0 requires 24 or later) |
+| 2.5.0 | 3; does not load on Seneca 4.0.0 (`plugin_gubu_shape`) | 18+ |
 
 License: MIT, see [LICENSE](LICENSE).

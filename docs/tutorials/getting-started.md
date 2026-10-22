@@ -6,7 +6,7 @@ You use a local S3 compatible server, so no AWS account is needed.
 ## 1. Install
 
 ```sh
-npm install seneca seneca-entity @seneca/s3-store @aws-sdk/client-s3 @aws-sdk/s3-request-presigner
+npm install seneca @seneca/entity @seneca/s3-store @aws-sdk/client-s3 @aws-sdk/s3-request-presigner
 ```
 
 The AWS SDK packages are peer dependencies: your application provides them.
@@ -35,7 +35,7 @@ const S3Store = require('../..') // in your project: require('@seneca/s3-store')
 async function main() {
   const seneca = Seneca({ legacy: false })
     .test()
-    .use('entity', { mem_store: false })
+    .use('@seneca/entity', { mem_store: false })
     .use(S3Store, {
       s3: {
         region: 'eu-west-1',
