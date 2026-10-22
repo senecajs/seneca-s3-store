@@ -18,7 +18,7 @@ async function main() {
   const bucket = process.env.SENECA_TEST_S3_BUCKET || 'test-bucket'
   const seneca = Seneca({ legacy: false })
     .test()
-    .use('entity', { mem_store: false })
+    .use('@seneca/entity', { mem_store: false })
     .use(S3Store, {
       s3: {
         region: 'eu-west-1',
