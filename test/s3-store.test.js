@@ -4,7 +4,7 @@
 const LOCAL = 'true' !== process.env.SENECA_TEST_LIVE_S3_STORE
 
 const Seneca = require('seneca')
-const Shared = require('seneca-store-test')
+const Shared = require('@seneca/store-test')
 
 const Lab = require('@hapi/lab')
 const Code = require('@hapi/code')
@@ -31,14 +31,12 @@ lab.before(async function () {
 
   test_opts.seneca = Seneca({ legacy: false })
     .test()
-    .use('promisify')
     .use('@seneca/entity', { mem_store: false })
 })
 
 lab.test('happy', async function () {
   let s0 = Seneca({ legacy: false })
     .test()
-    .use('promisify')
     .use('@seneca/entity', { mem_store: false })
     .use(Plugin, {
       s3: {},
@@ -66,7 +64,6 @@ const local_opts = {
 lab.before(async function () {
   local_opts.seneca = Seneca({ legacy: false })
     .test()
-    .use('promisify')
     .use('@seneca/entity', { mem_store: false })
 })
 
@@ -82,7 +79,6 @@ lab.test('jsonl-s3', async function () {
 
   let s0 = Seneca({ legacy: false })
     .test()
-    .use('promisify')
     .use('@seneca/entity', { mem_store: false })
     .use(Plugin, options)
 
@@ -155,7 +151,6 @@ lab.test('jsonl-local-basic', async function () {
 
   let s0 = Seneca({ legacy: false })
     .test()
-    .use('promisify')
     .use('@seneca/entity', { mem_store: false })
     .use(Plugin, options)
 
@@ -201,7 +196,6 @@ lab.test('bin-s3-basic', async function () {
 
   let s0 = Seneca({ legacy: false })
     .test()
-    .use('promisify')
     .use('@seneca/entity', { mem_store: false })
     .use(Plugin, options)
 
@@ -263,7 +257,6 @@ lab.test('bin-local-basic', async function () {
 
   let s0 = Seneca({ legacy: false })
     .test()
-    .use('promisify')
     .use('@seneca/entity', { mem_store: false })
     .use(Plugin, options)
 
@@ -351,7 +344,6 @@ async function makeOptions() {
 function makeSeneca(s3opts) {
   return Seneca({ legacy: false })
     .test()
-    .use('promisify')
     .use('@seneca/entity', { mem_store: false })
     .use(Plugin, s3opts)
 }

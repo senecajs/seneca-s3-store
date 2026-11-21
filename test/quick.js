@@ -22,7 +22,6 @@ async function run() {
   let s0 = Seneca({ legacy: false })
     // .test('print')
     .test()
-    .use('promisify')
     .use('@seneca/entity', { mem_store: false })
     .use('..', opts)
 

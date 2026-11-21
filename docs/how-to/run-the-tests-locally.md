@@ -2,7 +2,7 @@
 
 Goal: run `npm test` against a local S3 compatible server.
 
-1. Use Node 24 (or 22) and install: `npm install`.
+1. Use Node 24 or later and install: `npm install`.
 2. Start the server: `npm run services:up`. This runs
    `docker compose up -d --wait` with [docker-compose.yml](../../docker-compose.yml):
    container `seneca-s3-store-s3`, image `adobe/s3mock:5.2`, host port
@@ -10,10 +10,9 @@ Goal: run `npm test` against a local S3 compatible server.
 3. Run `npm test`.
 4. Stop and remove the server: `npm run services:down`.
 
-To test against the unreleased Seneca build, run
-`npm install --no-save <path>/seneca-4.0.0.tgz`, then `npm test`, then
-`npm install` to restore the devDependency. To test on Seneca 3, install
-`seneca@3.38.0` the same way.
+To test against a local Seneca build, run
+`npm install --no-save <path>/seneca-4.x.y.tgz`, then `npm test`, then
+`npm install` to restore the devDependency.
 
 ## Environment variables
 

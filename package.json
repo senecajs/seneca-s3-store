@@ -34,30 +34,35 @@
     "src",
     "dist",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "CHANGES.md"
   ],
+  "engines": {
+    "node": ">=24"
+  },
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.1147.0",
     "@aws-sdk/s3-request-presigner": "^3.1147.0",
     "@hapi/code": "^9.0.3",
     "@hapi/lab": "^26.0.1",
-    "@seneca/doc": "^8.0.0",
+    "@seneca/doc": "^9.0.0",
     "@seneca/entity": "^29.0.0",
+    "@seneca/store-test": "^7.0.0",
     "@types/node": "^24.0.0",
     "prettier": "^3.3.1",
-    "seneca": "^4.0.0-rc5",
-    "seneca-promisify": "^3.7.2",
-    "seneca-store-test": "^6.0.0",
+    "seneca": "^4.0.0",
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
     "@aws-sdk/client-s3": ">=3",
     "@aws-sdk/s3-request-presigner": ">=3",
-    "@seneca/entity": ">=29",
-    "seneca": ">=3.38||>=4.0.0-rc5",
-    "seneca-promisify": ">=3"
+    "@seneca/entity": "^29.0.0",
+    "seneca": "^4.0.0"
   },
   "dependencies": {
     "chokidar": "^3.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -22,21 +22,17 @@ applications and tests can run without S3, and the optional watcher can
 simulate S3 object created notifications for code that reacts to uploads.
 The watcher is not closed when Seneca closes.
 
-## Seneca 3 and Seneca 4
+## Seneca 4
 
-The plugin uses only APIs present in both: `seneca.init`, `seneca.message`,
-`seneca.export('entity/init')`. Seneca 4 does not wrap action errors, so an
-S3 error reaches the caller as the original AWS SDK error (with the Seneca
-wrapper on `err.meta$.err`). On Seneca 3, `seneca.message` comes from
-seneca-promisify, which must be loaded before this plugin.
+The plugin needs Seneca 4 and `@seneca/entity` 29. It uses
+`seneca.init`, `seneca.message` and `seneca.export('entity/init')`.
+Seneca 4 does not wrap action errors, so an S3 error reaches the caller as
+the original AWS SDK error (with the Seneca wrapper on `err.meta$.err`).
 
-Seneca 4.0.0 validates plugin options with
-[shape](https://github.com/rjrodger/shape), Seneca 3 with Gubu, and Seneca
-4.0.0 refuses option defaults built with Gubu (`plugin_gubu_shape`). The
-option defaults are therefore a function of `{ valid }`, built with the
-builders Seneca passes to it, so the same defaults work on both. On Seneca
-4.0.0 the `ent` entries are also checked: `jsonl` and `bin` must be strings.
-Gubu, on Seneca 3 and 4.0.0-rc5, does not check them.
+Seneca 4 validates plugin options with
+[shape](https://github.com/rjrodger/shape) and refuses option defaults
+built with Gubu (`plugin_gubu_shape`). The option defaults are therefore a
+function of `{ valid }`, built with the builders Seneca passes to it. The
+`ent` entries are checked too: `jsonl` and `bin` must be strings.
 
-The tests run on Seneca 4.0.0, 4.0.0-rc5 (the development dependency) and
-3.38.
+The tests run on Seneca 4.0.0.

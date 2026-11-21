@@ -6,7 +6,7 @@ You use a local S3 compatible server, so no AWS account is needed.
 ## 1. Install
 
 ```sh
-npm install seneca @seneca/entity @seneca/s3-store @aws-sdk/client-s3 @aws-sdk/s3-request-presigner
+npm install seneca@^4 @seneca/entity @seneca/s3-store @aws-sdk/client-s3 @aws-sdk/s3-request-presigner
 ```
 
 The AWS SDK packages are peer dependencies: your application provides them.

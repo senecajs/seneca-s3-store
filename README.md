@@ -3,7 +3,7 @@
 
 # @seneca/s3-store
 
-An entity store for [Seneca](http://senecajs.org) that keeps each entity as an object in AWS S3 (or any S3 compatible server), or as a file in a local folder. Works with Seneca 4 (tested with 4.0.0 and 4.0.0-rc5) and Seneca 3 from 3.38 (with seneca-promisify), on Node 24 and 22 (Seneca 4.0.0 requires Node 24 or later).
+An entity store for [Seneca](http://senecajs.org) that keeps each entity as an object in AWS S3 (or any S3 compatible server), or as a file in a local folder. Works with Seneca 4 on Node 24 or later. Seneca 3 users stay on `@seneca/s3-store@2`.
 
 [![npm version](https://img.shields.io/npm/v/@seneca/s3-store.svg)](https://npmjs.com/package/@seneca/s3-store)
 [![build](https://github.com/senecajs/seneca-s3-store/actions/workflows/build.yml/badge.svg)](https://github.com/senecajs/seneca-s3-store/actions/workflows/build.yml)
@@ -17,11 +17,8 @@ An entity store for [Seneca](http://senecajs.org) that keeps each entity as an o
 ## Install
 
 ```sh
-npm install @seneca/s3-store @aws-sdk/client-s3 @aws-sdk/s3-request-presigner seneca @seneca/entity
+npm install @seneca/s3-store @aws-sdk/client-s3 @aws-sdk/s3-request-presigner seneca@^4 @seneca/entity
 ```
-
-On Seneca 3 (3.38 or later) also install `seneca-promisify` and load it
-before this plugin (`.use('promisify')`).
 
 ## Quick Example
 
@@ -73,7 +70,7 @@ without S3 using a local folder. See [How it works](docs/explanation/how-it-work
 ## Contributing
 
 The [Senecajs org](https://github.com/senecajs/) encourages open participation.
-To run the tests (Node 24 or 22, Seneca 4 prerelease as devDependency):
+To run the tests (Node 24 or later):
 
 ```sh
 npm install
@@ -93,7 +90,7 @@ files in S3. Uses the AWS SDK v3.
 
 | Version | Seneca | Node |
 | ------- | ------ | ---- |
-| 3.0.0 | 4 (tested with 4.0.0 and 4.0.0-rc5), 3 from 3.38 (tested with 3.38.0) | 24, 22 (Seneca 4.0.0 requires 24 or later) |
+| 3.0.0 | 4 (tested with 4.0.0) | 24 or later |
 | 2.5.0 | 3; does not load on Seneca 4.0.0 (`plugin_gubu_shape`) | 18+ |
 
 License: MIT, see [LICENSE](LICENSE).

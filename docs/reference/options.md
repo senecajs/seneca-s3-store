@@ -21,9 +21,8 @@ Options are given to `seneca.use('@seneca/s3-store', options)` or as
 | `ent.<canon>.jsonl` | string | unset | Store this array field as JSONL. Other fields are lost. |
 | `ent.<canon>.bin` | string | unset | Store this field as binary. Other fields are lost. |
 
-On Seneca 4.0.0 the `ent` entries are validated: a `jsonl` or `bin` value
-that is not a string fails the plugin load (`invalid_plugin_option`).
-Seneca 3 and 4.0.0-rc5 do not check them.
+The `ent` entries are validated: a `jsonl` or `bin` value that is not a
+string fails the plugin load (`invalid_plugin_option`).
 
 ## Entity directives
 
