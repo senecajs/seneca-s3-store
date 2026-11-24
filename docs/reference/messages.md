@@ -2,7 +2,7 @@
 
 ## Store operations
 
-The plugin is a seneca-entity store (`name: 's3-store'`). Use it through the
+The plugin is an entity store (`name: 's3-store'`) for `@seneca/entity`. Use it through the
 entity API.
 
 | Operation | Behaviour |

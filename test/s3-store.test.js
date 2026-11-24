@@ -4,7 +4,7 @@
 const LOCAL = 'true' !== process.env.SENECA_TEST_LIVE_S3_STORE
 
 const Seneca = require('seneca')
-const Shared = require('seneca-store-test')
+const Shared = require('@seneca/store-test')
 
 const Lab = require('@hapi/lab')
 const Code = require('@hapi/code')
@@ -31,15 +31,13 @@ lab.before(async function () {
 
   test_opts.seneca = Seneca({ legacy: false })
     .test()
-    .use('promisify')
-    .use('entity', { mem_store: false })
+    .use('@seneca/entity', { mem_store: false })
 })
 
 lab.test('happy', async function () {
   let s0 = Seneca({ legacy: false })
     .test()
-    .use('promisify')
-    .use('entity', { mem_store: false })
+    .use('@seneca/entity', { mem_store: false })
     .use(Plugin, {
       s3: {},
     })
@@ -66,8 +64,7 @@ const local_opts = {
 lab.before(async function () {
   local_opts.seneca = Seneca({ legacy: false })
     .test()
-    .use('promisify')
-    .use('entity', { mem_store: false })
+    .use('@seneca/entity', { mem_store: false })
 })
 
 Shared.test.init(lab, local_opts)
@@ -82,8 +79,7 @@ lab.test('jsonl-s3', async function () {
 
   let s0 = Seneca({ legacy: false })
     .test()
-    .use('promisify')
-    .use('entity', { mem_store: false })
+    .use('@seneca/entity', { mem_store: false })
     .use(Plugin, options)
 
   let color0 = await s0.entity('optent/color').save$({
@@ -155,8 +151,7 @@ lab.test('jsonl-local-basic', async function () {
 
   let s0 = Seneca({ legacy: false })
     .test()
-    .use('promisify')
-    .use('entity', { mem_store: false })
+    .use('@seneca/entity', { mem_store: false })
     .use(Plugin, options)
 
   let color0 = await s0.entity('optent/color').save$({
@@ -201,8 +196,7 @@ lab.test('bin-s3-basic', async function () {
 
   let s0 = Seneca({ legacy: false })
     .test()
-    .use('promisify')
-    .use('entity', { mem_store: false })
+    .use('@seneca/entity', { mem_store: false })
     .use(Plugin, options)
 
   let planet0 = await s0.entity('optent/planet').save$({
@@ -263,8 +257,7 @@ lab.test('bin-local-basic', async function () {
 
   let s0 = Seneca({ legacy: false })
     .test()
-    .use('promisify')
-    .use('entity', { mem_store: false })
+    .use('@seneca/entity', { mem_store: false })
     .use(Plugin, options)
 
   let planet0 = await s0.entity('optent/planet').save$({
@@ -351,7 +344,6 @@ async function makeOptions() {
 function makeSeneca(s3opts) {
   return Seneca({ legacy: false })
     .test()
-    .use('promisify')
-    .use('entity', { mem_store: false })
+    .use('@seneca/entity', { mem_store: false })
     .use(Plugin, s3opts)
 }

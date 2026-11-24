@@ -10,7 +10,7 @@ async function main() {
 
   const seneca = Seneca({ legacy: false })
     .test()
-    .use('entity', { mem_store: false })
+    .use('@seneca/entity', { mem_store: false })
     .use(S3Store, {
       local: { active: true, folder },
       ent: {

@@ -27,7 +27,7 @@
 
 | Page | Description |
 | ---- | ----------- |
-| [How it works](explanation/how-it-works.md) | Keys, lifecycle, local mode, Seneca 3 and 4. |
+| [How it works](explanation/how-it-works.md) | Keys, lifecycle, local mode, Seneca 4. |
 
 ## Feature index
 

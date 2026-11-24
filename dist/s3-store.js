@@ -7,37 +7,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
 const promises_1 = __importDefault(require("fs/promises"));
 const chokidar_1 = __importDefault(require("chokidar"));
-const gubu_1 = require("gubu");
 const client_s3_1 = require("@aws-sdk/client-s3");
 const s3_request_presigner_1 = require("@aws-sdk/s3-request-presigner");
 // TODO: ent fields as dot paths
-s3_store.defaults = {
+s3_store.defaults = ({ valid }) => ({
     debug: false,
-    prefix: (0, gubu_1.Empty)('seneca/db01/'),
-    suffix: (0, gubu_1.Empty)('.json'),
-    folder: (0, gubu_1.Any)(),
+    prefix: valid.Empty('seneca/db01/'),
+    suffix: valid.Empty('.json'),
+    folder: valid.Any(),
     s3: {},
     // keys are canon strings
-    map: (0, gubu_1.Skip)({}),
-    shared: (0, gubu_1.Skip)({}),
+    map: valid.Skip({}),
+    shared: valid.Skip({}),
     // Use a local folder to simulate S3 for local dev and testing.
     local: {
         active: false,
         folder: '',
         watch: false,
         // suffixMode: 'none', // TODO: FIX: Default('none', Exact('none', 'genid')),
-        suffixMode: (0, gubu_1.Default)('none', (0, gubu_1.Exact)('none', 'genid')),
+        suffixMode: valid.Default('none', valid.Exact('none', 'genid')),
         // { [path-prefix]: msg }
-        onObjectCreated: (0, gubu_1.Skip)((0, gubu_1.Child)((0, gubu_1.One)(String, Object))),
+        onObjectCreated: valid.Skip(valid.Child(valid.One(String, Object))),
     },
     // keys are canon strings
-    ent: (0, gubu_1.Default)({}, (0, gubu_1.Child)({
+    ent: valid.Default({}, valid.Child({
         // Save a sub array as JSONL. NOTE: Other fields are LOST!
-        jsonl: (0, gubu_1.Skip)(String),
+        jsonl: valid.Skip(String),
         // Save a sub field as binary. NOTE: Other fields are LOST!
-        bin: (0, gubu_1.Skip)(String),
+        bin: valid.Skip(String),
     })),
-};
+});
 const PLUGIN = '@seneca/s3-store';
 async function s3_store(options) {
     const seneca = this;

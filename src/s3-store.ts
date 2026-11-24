@@ -5,8 +5,6 @@ import Fsp from 'fs/promises'
 
 import chokidar from 'chokidar'
 
-import { Default, Skip, Any, Exact, Child, Empty, One } from 'gubu'
-
 import {
   S3Client,
   PutObjectCommand,
@@ -19,18 +17,18 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 
 // TODO: ent fields as dot paths
 
-s3_store.defaults = {
+s3_store.defaults = ({ valid }: { valid: any }) => ({
   debug: false,
 
-  prefix: Empty('seneca/db01/'),
-  suffix: Empty('.json'),
-  folder: Any(),
+  prefix: valid.Empty('seneca/db01/'),
+  suffix: valid.Empty('.json'),
+  folder: valid.Any(),
   s3: {},
 
   // keys are canon strings
-  map: Skip({}),
+  map: valid.Skip({}),
 
-  shared: Skip({}),
+  shared: valid.Skip({}),
 
   // Use a local folder to simulate S3 for local dev and testing.
   local: {
@@ -38,24 +36,24 @@ s3_store.defaults = {
     folder: '',
     watch: false,
     // suffixMode: 'none', // TODO: FIX: Default('none', Exact('none', 'genid')),
-    suffixMode: Default('none', Exact('none', 'genid')),
+    suffixMode: valid.Default('none', valid.Exact('none', 'genid')),
 
     // { [path-prefix]: msg }
-    onObjectCreated: Skip(Child(One(String, Object))),
+    onObjectCreated: valid.Skip(valid.Child(valid.One(String, Object))),
   },
 
   // keys are canon strings
-  ent: Default(
+  ent: valid.Default(
     {},
-    Child({
+    valid.Child({
       // Save a sub array as JSONL. NOTE: Other fields are LOST!
-      jsonl: Skip(String),
+      jsonl: valid.Skip(String),
 
       // Save a sub field as binary. NOTE: Other fields are LOST!
-      bin: Skip(String),
+      bin: valid.Skip(String),
     }),
   ),
-}
+})
 
 const PLUGIN = '@seneca/s3-store'
 

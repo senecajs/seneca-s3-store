@@ -10,10 +10,10 @@ entity, the store is a key value store: there is no query support and
 
 ## Lifecycle
 
-The plugin registers with seneca-entity during plugin definition. The S3
-client (or local mode) is set up in `seneca.init`, so it exists only once
-the instance is ready. This is why the `native` export is `null` and why
-`native$()` is the way to reach the client.
+The plugin registers with the entity plugin (`@seneca/entity`) during plugin
+definition. The S3 client (or local mode) is set up in `seneca.init`, so it
+exists only once the instance is ready. This is why the `native` export is
+`null` and why `native$()` is the way to reach the client.
 
 ## Local mode
 
@@ -22,9 +22,17 @@ applications and tests can run without S3, and the optional watcher can
 simulate S3 object created notifications for code that reacts to uploads.
 The watcher is not closed when Seneca closes.
 
-## Seneca 3 and Seneca 4
+## Seneca 4
 
-The plugin uses only APIs present in both: `seneca.init`, `seneca.message`,
-`seneca.export('entity/init')`. Seneca 4 does not wrap action errors, so an
-S3 error reaches the caller as the original AWS SDK error (with the Seneca
-wrapper on `err.meta$.err`). The tests run on Seneca 4 only.
+The plugin needs Seneca 4 and `@seneca/entity` 29. It uses
+`seneca.init`, `seneca.message` and `seneca.export('entity/init')`.
+Seneca 4 does not wrap action errors, so an S3 error reaches the caller as
+the original AWS SDK error (with the Seneca wrapper on `err.meta$.err`).
+
+Seneca 4 validates plugin options with
+[shape](https://github.com/rjrodger/shape) and refuses option defaults
+built with Gubu (`plugin_gubu_shape`). The option defaults are therefore a
+function of `{ valid }`, built with the builders Seneca passes to it. The
+`ent` entries are checked too: `jsonl` and `bin` must be strings.
+
+The tests run on Seneca 4.0.0.
